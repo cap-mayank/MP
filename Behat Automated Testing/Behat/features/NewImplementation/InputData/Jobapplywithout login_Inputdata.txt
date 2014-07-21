@@ -1,0 +1,103 @@
+﻿|country|keyword|firstname|lastname	|email						|currentjob		|currentsalary		|browsecv	|message |bcreatalert|bprivacy|output|	
+#For SINGAPORE
+|sg		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|sg		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|sg		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|sg		|manger |lavin	   |		|							|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|sg		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|			    |					|cv.txt		|Applying|			 |		  |This field is required|
+|sg		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|			|Applying|			 |		  | Please attach a file |
+|sg		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |lavin     |malkani |lavin.malkani@capgemini.com|123	 		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |lavin     |malkani |lavin.malkani@capgemini.com|%£	   	 		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|sg		|manger |lavin     |malkani |me.com                     |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|sg		|manger |lavin     |malkani |#!                         |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|sg		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+#For Australia
+|au		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|au		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|au		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|au		|manger |lavin	   |		|							|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|au		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|			|Applying|			 |		  | Please attach a file |
+|au		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|au		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|au		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|au		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|au		|manger |lavin     |malkani |me.com                     |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|au		|manger |lavin     |malkani |#!                         |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|au		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+#For Malaysia
+|my		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|my		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|my		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|my		|manger |lavin	   |		|							|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|my		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|			|Applying|			 |		  | Please attach a file |
+|my		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|my		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|my		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|my		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|my		|manger |lavin     |malkani |me.com                     |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|my		|manger |lavin     |malkani |#!                         |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|my		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+#For Hong Kong
+|hk		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|hk		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|hk		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|hk		|manger |lavin	   |		|							|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|hk		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|			|Applying|			 |		  | Please attach a file |
+|hk		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|hk		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|hk		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|hk		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|hk		|manger |lavin     |malkani |me.com                     |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|hk		|manger |lavin     |malkani |#!                         |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|hk		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+#For India
+|in		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|in		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|INR 15 - 30 Lacs	|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|in		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is required|
+|in		|manger |lavin	   |		|							|Auditor	  	|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is required|
+|in		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|			  	|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is required|
+|in		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Current Salary (INR) field is required|
+|in		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|INR 15 - 30 Lacs	|			|Applying|			 |		  | Please attach a file |
+|in		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|INR 15 - 30 Lacs   |cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|in		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|INR 15 - 30 Lacs   |cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|in		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|in		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|in		|manger |lavin     |malkani |me.com                     |Auditor		|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is invalid|
+|in		|manger |lavin     |malkani |#!                         |Auditor		|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is invalid|
+|in		|manger |lavin     |malkani |lavin.malkani@capgemini.com|me.com			|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is invalid|
+|in		|manger |lavin     |malkani |lavin.malkani@capgemini.com|#! 			|INR 15 - 30 Lacs	|cv.txt		|Applying|			 |		  |This field is invalid|
+|in		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|INR 15 - 30 Lacs	|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+#For New Zealand
+|nz		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |Thank you for submitting your job application|
+|nz		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|	 	 |			 |		  |Thank you for submitting your job application|
+|nz		|manger |          |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|nz		|manger |lavin	   |		|							|Auditor	  	|					|cv.txt		|Applying|			 |		  |This field is required|
+|nz		|manger |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|			|Applying|			 |		  | Please attach a file |
+|nz		|manger |123	   |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|nz		|manger |$£        |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|nz		|manger |lavin     |123     |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|nz		|manger |lavin     |%£      |lavin.malkani@capgemini.com|Auditor		|					|cv.txt		|Applying|			 |		  |This field cannot contain numbers or special characters|
+|nz		|manger |lavin     |malkani |me.com                     |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|nz		|manger |lavin     |malkani |#!                         |Auditor		|					|cv.txt		|Applying|			 |		  |This field is invalid|
+|nz		|manger |lavin     |malkani |lavin.malkani@capgemini.com|Auditor		|					|cv500.txt	|Applying|			 |		  |CV file must not exceed 400KB|
+
+
+
+
+|country|JobReference|firstname|lastname|email					  |currentjob 	|currentsalary		|browsecv	|message |bcreatalert|bprivacy|	
+#For SINGAPORE
+|sg		|H1940320	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|		 |
+#For Australia
+|au		|A107315217	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|1		 |
+#For Malaysia
+|my		|h2242180	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|		 |
+#For Hong kong
+|hk		|H2006390	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|		 |
+#For India
+|in		|I110140	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|		 |
+#For New Zealand
+|nz		|A107315722	 |lavin	   |malkani	|lavin.malkani@capgemini.com|Auditor	  	|					|cv.txt		|Applying|1			|	 	 |
