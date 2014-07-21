@@ -12,8 +12,7 @@ And I wait 3 seconds
 And I click "//li[@class='views-row views-row-1 views-row-odd views-row-first']/div/a"
 And I wait 5 seconds
 And I wait 2 seconds
-When I fill "jobapply" form for country "<country>" and parameters "<firstname>,<lastname>,<email>,<currentjob>,<currentsalary>,<browsecv>,<message>,<bcreatalert>,<bprivacy>"
-And I wait 2 seconds
+
 And I click "Apply" on "form"
 Then I should see "<output>"
 
