@@ -1,0 +1,27 @@
+<project name="behat" basedir="C:\Users\jbaldwin\Dropbox\behat automated testing\Behat">
+  
+   <target name="run">
+    <delete dir="${basedir}/report" />
+      <mkdir dir="${basedir}/report"/>
+      <parallel>
+      <antcall target="Windows"></antcall>
+      <antcall target="sauce"></antcall>
+       <antcall target="firefox"></antcall>
+     </parallel>
+  </target>
+  <target name="sauce">
+    <exec dir="${basedir}" executable="php" failonerror="true">
+    <arg line= "vendor\bin\behat -f html --out report/chrome.html -p sauce"/>
+    </exec>
+  </target>
+  <target name="Windows">
+    <exec dir="${basedir}" executable="php" failonerror="true">
+    <arg line= "vendor\bin\behat -f html --out report/ie.html -p Windows"/>
+    </exec>
+  </target>
+  <target name="firefox">
+    <exec dir="${basedir}" executable="php" failonerror="true">
+    <arg line= "vendor\bin\behat -f html --out report/firefox.html -p firefox"/>
+    </exec>
+  </target>
+</project>
