@@ -14,3 +14,4 @@ Then I verify and validate the saved search and job alert created
 Examples:
 |country|
 |my		|
+|au		|
