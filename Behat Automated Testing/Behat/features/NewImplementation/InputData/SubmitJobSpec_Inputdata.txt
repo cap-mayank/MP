@@ -1,0 +1,71 @@
+SUBMIT JOB SPEC INPUT DATA
+Purpose: To be filled in SubmitJobSpec feature file under "Examples" for those countries that needs to be executed
+Description: # tag defines the country for which the respective scenarios have been incorporated
+
+|country|name |company|email					|telephone|location_hk|location_au|location_sg|location_in|location_my |location_nz|sector	  |input7|output1|
+#For Malaysia
+|my		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|my		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|my		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|my		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|my		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|
+#For Australia
+|au		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|au		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|au		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|au		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|au		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|
+#For HongKong
+|hk		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|hk		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|hk		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|hk		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|hk		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|
+#For Singapore
+|sg		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|sg		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|sg		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|sg		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|sg		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|
+#For India
+|in		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|in		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|in		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|in		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|in		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|
+#For New Zealand
+|nz		|	  |CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|nz		|sahil|		  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|nz		|sahil|CG	  |							|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|nz		|sahil|CG	  |sahil.mehta			  	|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is invalid|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|		  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |This field is required|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|12av5	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Field is numeric|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |			  |			  |			  |			  |			   |		   |Accounting|		 |This field is required|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|		 |Job spec upload|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |		  |		 |This field is required|
+|nz		|sahil|CG	  |sahil.mehta@capgemini.com|12345	  |Hong Kong  |Darwin	  |Bangkok	  |Mumbai	  |Kuala Lumpur|Auckland   |Accounting|cv.txt|Job spec upload|

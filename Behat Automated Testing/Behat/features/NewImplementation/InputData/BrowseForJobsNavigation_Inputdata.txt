@@ -1,0 +1,80 @@
+BROWSE FOR JOBS NAVIGATION INPUT DATA
+Purpose: //To be filled in SubmitCV_WithoutLoggedIn and SubmitCV_LoggedIn feature files under "Examples" for those countries that needs to be executed
+Description: # tag defines the country for which the respective scenarios have been incorporated
+
+|country|sector 					 |result					  |url|
+#For Singapore
+|sg		|Accounting					 |Accounting				  |accounting|
+|sg		|Banking					 |Banking					  |banking|
+|sg		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|sg		|Healthcare and Life Sciences|Healthcare and Life Sciences|healthcare-and-life-sciences|
+|sg		|Human Resources			 |Human Resources			  |human-resources|
+|sg		|IT							 |IT						  |it|
+|sg		|Legal						 |Legal						  |legal|
+|sg		|Marketing					 |Marketing					  |marketing|
+|sg		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+|sg		|Property & Construction	 |Property & Construction	  |property-construction|
+|sg		|Sales						 |Sales						  |sales|
+|sg		|Secretarial & Office Support|Secretarial & Office Support|secretarial-office-support|
+#For Australia
+|au		|Accounting					 |Accounting				  |accounting|
+|au		|Agency						 |Agency					  |agency|
+|au		|Banking					 |Banking					  |banking|
+|au		|Digital					 |Digital					  |digital|
+|au		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|au		|Hospitality & Leisure		 |Hospitality & Leisure		  |hospitality-leisure|
+|au		|Human Resources			 |Human Resources			  |human-resources|
+|au		|Information Technology		 |Information Technology	  |information-technology|
+|au		|Legal						 |Legal						  |legal|
+|au		|Marketing					 |Marketing					  |marketing|
+|au		|Mining & Resources			 |Mining & Resources		  |mining-resources|
+|au		|Sales						 |Sales						  |sales|
+|au		|Retail						 |Retail					  |retail|
+|au		|Property & Construction	 |Property & Construction	  |property-construction|
+|au		|Oil & Gas					 |Oil & Gas					  |oil-gas|
+|au		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+#For HongKong
+|hk		|Finance & Accounting		 |Finance & Accounting		  |finance-accounting|
+|hk		|Financial Services & Banking|Financial Services & Banking|financial-services-banking|
+|hk		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|hk		|Human Resources			 |Human Resources			  |human-resources|
+|hk		|Marketing					 |Marketing					  |marketing|
+|hk		|Digital					 |Digital					  |digital|
+|hk		|IT							 |IT						  |it|
+|hk		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+|hk		|Retail & Sourcing			 |Retail & Sourcing			  |retail-sourcing|
+|hk		|Property & Construction	 |Property & Construction	  |property-construction|
+|hk		|Legal						 |Legal						  |legal|
+|hk		|Sales						 |Sales						  |sales|
+|hk		|Secretarial & Office Support|Secretarial & Office Support|secretarial-office-support|
+#For India
+|in		|Accounting					 |Accounting				  |accounting|
+|in		|Banking					 |Banking					  |banking|
+|in		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|in		|Healthcare and Life Sciences|Healthcare and Life Sciences|healthcare-and-life-sciences|
+|in		|Human Resources			 |Human Resources			  |human-resources|
+|in		|Sales						 |Sales						  |sales|
+|in		|Marketing					 |Marketing					  |marketing|
+|in		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+#For Malaysia
+|my		|Accounting					 |Accounting				  |accounting|
+|my		|Banking					 |Banking					  |banking|
+|my		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|my		|Human Resources			 |Human Resources			  |human-resources|
+|my		|IT							 |IT						  |it|
+|my		|Legal						 |Legal						  |legal|
+|my		|Marketing					 |Marketing					  |marketing|
+|my		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+|my		|Property & Construction	 |Property & Construction	  |property-construction|
+|my		|Sales						 |Sales						  |sales|
+|my		|Secretarial & Office Support|Secretarial & Office Support|secretarial-office-support|
+#For New Zealand
+|nz		|Procurement & Supply Chain	 |Procurement & Supply Chain  |procurement-supply-chain|
+|nz		|Office Support				 |Office Support			  |office-support|
+|nz		|Accounting					 |Accounting				  |accounting|
+|nz		|Property & Construction	 |Property & Construction	  |property-construction|
+|nz		|Retail						 |Retail					  |retail|
+|nz		|Marketing					 |Marketing					  |marketing|
+|nz		|Engineering & Manufacturing |Engineering & Manufacturing |engineering-manufacturing|
+|nz		|Human Resources			 |Human Resources			  |human-resources|
+|nz		|Sales						 |Sales						  |sales|
