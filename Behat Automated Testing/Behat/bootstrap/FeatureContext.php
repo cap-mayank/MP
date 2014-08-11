@@ -852,6 +852,38 @@ public function logout()
 		$this->iClickOnTheElementWithXPath("//*[@class='region region-right-side-content']//*[contains(text(),'Log out')]");
 		$this->iWaitForSeconds(2);
 	}	
+	
+//**********************************************************************************************************************************************************************************************//
+//Purpose : This function to navigate to external job apply URL
+//Created on : 05 August 2014
+//Author : Lavin Malkani
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+/**
+ * @When /^I redirect to external job apply page for "([^"]*)"$/
+ */
+public function VistExternalJobapplyUrl($country)
+	{
+		//Goto External job apply Page
+		$session=$this->getSession();
+		$detailurl=$session->getCurrentUrl();
+		echo $detailurl;
+		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="us" or $country ==="nz"or $country ==="in"or $country ==="cn"or $country ==="jp")
+		{
+			list($https,$dummy,$domain,$jdetail,$jtitle,$ref,$refnum)=preg_split("[/]",$detailurl);
+			$externalapply = $domain."/"."job-apply-external"."/".$ref."/".$refnum;
+			$session->visit($externalapply);
+		}
+		elseif ($country ==="uk" or $country ==="ie" or $country ==="my") 
+		{
+			$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&source=bean&_ad=broadbean";
+			$session->visit($externalapply);
+		}
+	}
+
+
+
 //END GENERIC FUNCTIONS------------------------------------------------------
 
 
