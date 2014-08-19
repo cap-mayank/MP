@@ -918,9 +918,8 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
 			$this->uploadLocalFile($jobspec,"//input[@id='edit-submitted-mp-details-of-job-specification-upload']");
 		}
-
 		//For Request Call Back
-		If($form === "request-call-back")	{
+		elseif($form === "request-call-back")	{
 			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$message)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-job-title",$job_title);
@@ -933,7 +932,7 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$message);
 		}
         //For Feedback form
-         If($form === "submit-feedback")	{
+         elseif($form === "submit-feedback")	{
 			list($name,$email,$Complaint_subject,$Comments)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
@@ -941,7 +940,7 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-comments",$Comments);
 		}
 		//For salary appraisal
-        If($form === "salary-appraisal-request")	{
+        elseif($form === "salary-appraisal-request")	{
 			list($name,$sector,$Job_title,$salary,$format,$email,$tel)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-name",$name);
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-sector",$sector);
@@ -950,7 +949,7 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-preferred-format-for-appraisal",$format);
 			$this->getSession()->getPage()->fillField("edit-submitted-email",$email);
 			$this->getSession()->getPage()->fillField("edit-submitted-telephone-no",$tel);
-			
+		}
 		//For Job Apply Without Login
 		elseif($form === "jobapply") {
 			list($firstname,$lastname,$email,$currentjob,$currentsalary,$browsecv,$message,$bcreatalert,$bprivacy)=preg_split("[,]",$para);
@@ -975,14 +974,13 @@ public function FillForm($form,$country,$para)
 				}
 			}
         }
-  
 		//For Job Apply When Login
 		elseif($form === "jobapply when login") {
 			list($firstname,$lastname,$email,$currentjob,$currentsalary,$browsecv,$bupload,$message,$bcreatalert,$bprivacy)=preg_split("[,]",$para);
 			$this->fillFieldsxpath("//form[contains(@action,'job-apply')]//*[@id='edit-firstname']",$firstname);
 			$this->fillFieldsxpath("//form[contains(@action,'job-apply')]//*[@id='edit-lastname']",$lastname);
 			$this->fillFieldsxpath("//form[contains(@action,'job-apply')]//*[@id='edit-email']",$email);
-			if ($country ==="in" or $country ==="sg"  ){ 
+			if ($country ==="in" or $country ==="sg"){ 
 				$this->fillFieldsxpath("//form[contains(@action,'job-apply')]//*[@id='edit-current-job']",$currentjob);
 			}
 			if ($country ==="in") {
@@ -1005,7 +1003,6 @@ public function FillForm($form,$country,$para)
 				}
 			}
         }
-		
 		//For Submit CV
 		elseif($form === "Submit CV")	{
 			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
