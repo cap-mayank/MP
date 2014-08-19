@@ -863,12 +863,12 @@ public function VistExternalJobapplyUrl($country)
 		$session=$this->getSession();
 		$detailurl=$session->getCurrentUrl();
 		echo $detailurl;
-		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="us" or $country ==="nz"or $country ==="in"or $country ==="cn"or $country ==="jp")
+		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="my" or $country ==="nz"or $country ==="in"or $country ==="cn"or $country ==="jp")
 		{
 			list($https,$dummy,$domain,$jdetail,$jtitle,$ref,$refnum)=preg_split("[/]",$detailurl);
 			$externalapply = $domain."/"."job-apply-external"."/".$ref."/".$refnum;
 		}
-		elseif ($country ==="uk" or $country ==="ie" or $country ==="my")
+		elseif ($country ==="uk" or $country ==="ie" or $country ==="us")
 		{
 			$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&source=bean&_ad=broadbean";
 		}
