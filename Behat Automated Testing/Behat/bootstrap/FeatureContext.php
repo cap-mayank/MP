@@ -621,16 +621,14 @@ public function VisitPage($site,$env,$country)
 			$new = str_replace("uat",$env,$base);
 			//$country = all the countries supported by Page
 			$url = str_replace("sg",$country,$new);
-			$this->getSession()->visit($url);
 		}
-		elseif ($country ==="in" or $country ==="nz" or $country ==="jp") {
+		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or $country ==="uk") {
 			//$site = michaelpage or pagepersonnel
 			$base = str_replace("pagesite",$site,$old);
 			//$env = the environment in which it needs to be run
 			$envnew = str_replace("uat",$env,$base);
 			$new= str_replace("com","co",$envnew);
 			$url= str_replace("sg",$country,$new);
-			$this->getSession()->visit($url);
 		}
 		elseif ($country ==="us")	{
 			//$site = michaelpage or pagepersonnel
@@ -638,9 +636,8 @@ public function VisitPage($site,$env,$country)
 			//$env = the environment in which it needs to be run
 			$envnew = str_replace("uat",$env,$base);
 			$url= str_replace(".sg","",$envnew);
-			$this->getSession()->visit($url);		
-		
 		}
+		$this->getSession()->visit($url);
 		
     }
 
@@ -665,16 +662,14 @@ public function VisitMypage($site,$env,$country)
 			$new = str_replace("uat",$env,$base);
 			//$country = all the countries supported by Page
 			$url = str_replace("sg",$country,$new);
-			$this->getSession()->visit($url);
 		}
-		elseif ($country ==="in" or $country ==="nz" or $country ==="jp") {
+		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or$country ==="uk") {
 			//$site = michaelpage or pagepersonnel
 			$base = str_replace("pagesite",$site,$old);
 			//$env = the environment in which it needs to be run
 			$envnew = str_replace("uat",$env,$base);
 			$new= str_replace("com","co",$envnew);
 			$url= str_replace("sg",$country,$new);
-			$this->getSession()->visit($url);
 		}
 		elseif ($country ==="us")	{
 			//$site = michaelpage or pagepersonnel
@@ -682,9 +677,8 @@ public function VisitMypage($site,$env,$country)
 			//$env = the environment in which it needs to be run
 			$envnew = str_replace("uat",$env,$base);
 			$url= str_replace(".sg","",$envnew);
-			$this->getSession()->visit($url);
 		}
-		
+		$this->getSession()->visit($url);
     }
 
 //**********************************************************************************************************************************************************************************************//
@@ -873,13 +867,12 @@ public function VistExternalJobapplyUrl($country)
 		{
 			list($https,$dummy,$domain,$jdetail,$jtitle,$ref,$refnum)=preg_split("[/]",$detailurl);
 			$externalapply = $domain."/"."job-apply-external"."/".$ref."/".$refnum;
-			$session->visit($externalapply);
 		}
-		elseif ($country ==="uk" or $country ==="ie" or $country ==="my") 
+		elseif ($country ==="uk" or $country ==="ie" or $country ==="my")
 		{
 			$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&source=bean&_ad=broadbean";
-			$session->visit($externalapply);
 		}
+		$session->visit($externalapply);
 	}
 
 
@@ -901,8 +894,10 @@ public function VistExternalJobapplyUrl($country)
 //Purpose : This function is for filling forms -> Submit CV, Submit Job Spec, Request Call Back, Job Apply, Request Salary Appraisal
 //Created on : 13 May 2014
 //Author : Sahil Mehta , Lavin Malkani
-//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
-//
+//Improvements/Modifications/Changes history	|Reason					|Date		|Done By	|
+//Added a new form for request a call back      	        			|7/8/2014	|Aniket
+//Added a new form for Feedback form                	     			|11/8/2014	|Aniket
+//Added a new form for Salary Appraisal form                   			|11/8/2014	|Aniket
 //**********************************************************************************************************************************************************************************************//
 
 /**
@@ -913,7 +908,7 @@ public function FillForm($form,$country,$para)
 		
 		//For Submit job spec
 		If($form === "submit-job-spec")	{
-			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$sector,$jobspec)=preg_split("[,]",$para);
+			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$sector,$jobspec)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-company",$company);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
@@ -924,6 +919,38 @@ public function FillForm($form,$country,$para)
 			$this->uploadLocalFile($jobspec,"//input[@id='edit-submitted-mp-details-of-job-specification-upload']");
 		}
 
+		//For Request Call Back
+		If($form === "request-call-back")	{
+			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$Message)=preg_split("[,]",$para);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-job-title",$job_title);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-organisation",$organisation);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
+			$var='location_'.$country;
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$Message);
+		}
+        //For Feedback form
+         If($form === "submit-feedback")	{
+			list($name,$email,$Complaint_subject,$Comments)=preg_split("[,]",$para);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-feedback-subject",$Complaint_subject);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-comments",$Comments);
+		}
+		//For salary appraisal
+        If($form === "salary-appraisal-request")	{
+			list($name,$sector,$Job_title,$salary,$format,$email,$tel)=preg_split("[,]",$para);
+			$this->getSession()->getPage()->fillField("edit-submitted-name",$name);
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-sector",$sector);
+			$this->getSession()->getPage()->fillField("edit-submitted-current-job-title",$Job_title);
+			$this->getSession()->getPage()->fillField("edit-submitted-current-salary",$salary);
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-preferred-format-for-appraisal",$format);
+			$this->getSession()->getPage()->fillField("edit-submitted-email",$email);
+			$this->getSession()->getPage()->fillField("edit-submitted-telephone-no",$tel);
+			
 		//For Job Apply Without Login
 		elseif($form === "jobapply") {
 			list($firstname,$lastname,$email,$currentjob,$currentsalary,$browsecv,$message,$bcreatalert,$bprivacy)=preg_split("[,]",$para);
@@ -981,7 +1008,7 @@ public function FillForm($form,$country,$para)
 		
 		//For Submit CV
 		elseif($form === "Submit CV")	{
-			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
+			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-firstname",$fname);
 			$this->getSession()->getPage()->fillField("edit-lastname",$lname);
 			$this->getSession()->getPage()->fillField("edit-email",$email);
@@ -1050,7 +1077,7 @@ public function SearchWithKeyword($search,$pagesite)
 				throw new Exception('I see 0 matching jobs for the search(es) mentioned');
 			}
 			$this->iWaitForSeconds(2);
-			$this->iClickOnTheElementWithXPath("//*[@href='/']//span[contains(text(),'Home')]");
+			$this->iClickOnTheElementWithXPath("//*[@href]//span[contains(text(),'Home')]");
 			$this->iWaitForSeconds(2);
 		}
 
