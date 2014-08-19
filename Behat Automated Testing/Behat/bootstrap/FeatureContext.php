@@ -921,7 +921,7 @@ public function FillForm($form,$country,$para)
 
 		//For Request Call Back
 		If($form === "request-call-back")	{
-			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$Message)=preg_split("[,]",$para);
+			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$message)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-job-title",$job_title);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-organisation",$organisation);
@@ -930,7 +930,7 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
 			$var='location_'.$country;
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
-			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$Message);
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$message);
 		}
         //For Feedback form
          If($form === "submit-feedback")	{
