@@ -415,7 +415,7 @@ class FeatureContext extends MinkContext
         $element = $this->getSession()->getPage()->find('css', $arg1);
  
         if (null === $element) {
-            throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
+            //throw new \InvalidArgumentException(sprintf('Could not evaluate XPath: "%s"', $xpath));
 			return null;
         }
 		else {
@@ -517,12 +517,11 @@ public function iHoverOverTheElement($locator)
 //**********************************************************************************************************************************************************************************************//
 
 /**
- * @When /^I count (\d+) number of child elements for "([^"]*)"$/
+ * @When /^I count number of child elements for "([^"]*)"$/
  */
-public function iCountChild($number,$locator)
+public function iCountChild($locator)
 {
         $session = $this->getSession();
-		
 		if (substr($locator,0,1)=='.') {
 		  $element = $session->getPage()->findAll('css', $locator);	//returns the element after running the query by using css
 		}
@@ -533,19 +532,18 @@ public function iCountChild($number,$locator)
             $session->getSelectorsHandler()->selectorToXpath('xpath', $locator)
         ); 			//returns the element after running the query by using xpath
 		}
-		
-
         // errors must not pass silently throw exception
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector or XPath: "%s"', $locator));
         }
 		//Count the number of child elements
         $size= sizeof($element);
+		return $size;
 		//echo $size;
 		//error if not equal to expected
-		If ($size != $number) {
-			throw new \InvalidArgumentException(sprintf('The number of child elements not as expected: "%s"', $number));
-		}
+		//If ($size != $number) {
+		//	throw new \InvalidArgumentException(sprintf('The number of child elements not as expected: "%s"', $number));
+		//}
 }
 
 //**********************************************************************************************************************************************************************************************//
@@ -750,8 +748,8 @@ public function checkFieldxpath($locator)
 //Purpose : This function is for clicking on various elements and links or buttons throughout Page site
 //Created on : 16 May 2014
 //Author : Sahil Mehta
-//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
-//
+//Improvements/Modifications/Changes history|Reason												|Date		|Done By	|
+//Added to select jobs on search result page|Click any numbered job specified on the result page|20/8/2014	|Sahil
 //**********************************************************************************************************************************************************************************************//
  /**
  * @When /^I click "([^"]*)" on "([^"]*)"$/
@@ -774,6 +772,7 @@ public function ClickOn($value,$place)
 			//$value= browsejobs or submitcv
 			$xpath=str_replace("browsejobs",$nvalue,$prev);			
 		}
+		//For clicking on forms buttons (Submit CV,Job apply, Submit job spec, Request call back,Salary appraisal,Feedback)
 		if ($place === "form")	{
 			$prev="//form[not(contains(@id,'mp-cv-submit-block-form-display'))]//input[@value='Submit']";
 			$xpath=str_replace("Submit",$value,$prev);
@@ -781,6 +780,11 @@ public function ClickOn($value,$place)
 		if ($place === "popup")	{
 			$prev="//*[@id='popup']//*[contains(text(),'button')]";
 			$xpath=str_replace("button",$value,$prev);
+		}
+		if ($place === "searchresult")	{
+			$prev="//li[1]/div/a";
+			$nvalue=str_replace("job ","",$value);
+			$xpath=str_replace("1",$nvalue,$prev);
 		}
 		$this->iClickOnTheElementWithXPath($xpath);
 		
