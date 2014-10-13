@@ -303,6 +303,37 @@ class FeatureContext extends MinkContext
     }
     
   }
+  //**********************************************************************************************************************************************************************************************//
+//Purpose : This function is for checking a part of the url is as expected
+//Created on : 09 May 2014
+//Author : Sahil Mehta
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+  
+   /**
+   * @Then /^I check redirecturl "([^"]*)"$/
+   */
+  public function iCheckredirecturl($url)
+  {
+      $url=ltrim($url,'http://');
+	  $url=ltrim($url,'https://');
+	  
+	  $node = $this->getSession()->getCurrentUrl();
+      $node=ltrim($node,'http://');
+	  $node=ltrim($node,'https://');
+	  
+	  if (null === $node ) {
+            throw new \InvalidArgumentException(sprintf('Could not get url: "%s"', $url));
+        }
+    if ($node == $url ) {
+		
+    }
+	else{
+		throw new \InvalidArgumentException(sprintf('incorrect redirection: "%s"', $node));
+	}
+    
+  }
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is used to attach a document.
@@ -635,6 +666,13 @@ public function VisitPage($site,$env,$country)
 			$envnew = str_replace("uat",$env,$base);
 			$url= str_replace(".sg","",$envnew);
 		}
+		elseif ($country ==="ie")	{
+			//$site = michaelpage or pagepersonnel
+			$base = str_replace("pagesite",$site,$old);
+			//$env = the environment in which it needs to be run
+			$envnew = str_replace("uat",$env,$base);
+			$url= str_replace("com.sg","ie",$envnew);
+		}
 		$this->getSession()->visit($url);
 		
     }
@@ -878,8 +916,23 @@ public function VistExternalJobapplyUrl($country)
 		}
 		$session->visit($externalapply);
 	}
-
-
+//**********************************************************************************************************************************************************************************************//
+//Purpose : This function to click on apply button on job detail page.
+//Created on : 20 August 2014
+//Author : Lavin Malkani
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+/**
+ * @When /^I check for Apply button $/
+ */
+/* public function CheckApplybutton()
+	{
+		//Check for apply button
+		$apply = $this->existelementxpath("//a[contains(text(),'Apply')");	
+		echo $apply;
+	}
+ */
 
 //END GENERIC FUNCTIONS------------------------------------------------------
 
