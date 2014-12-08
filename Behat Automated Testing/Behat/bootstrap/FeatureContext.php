@@ -303,10 +303,10 @@ class FeatureContext extends MinkContext
     }
     
   }
-  //**********************************************************************************************************************************************************************************************//
+//**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking a part of the url is as expected
-//Created on : 09 May 2014
-//Author : Sahil Mehta
+//Created on : 1 oct 2014
+//Author : Lavin malkani
 //Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
 //
 //**********************************************************************************************************************************************************************************************//
@@ -334,6 +334,49 @@ class FeatureContext extends MinkContext
 	}
     
   }
+  
+  //**********************************************************************************************************************************************************************************************//
+//Purpose : This function is for checking Url redirect
+//Created on : 1 oct 2014
+//Author : Lavin malkani
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+  
+   /**
+   * @Then /^I Compare RedirectUrl "([^"]*)" and "([^"]*)"$/
+   */
+  public function iCompareredirecturl($firsturl,$secondurl)
+  {
+		$this->getSession()->visit($firsturl);
+		$this->iWaitForSeconds(2);
+		$firstnode = $this->getSession()->getCurrentUrl();
+		
+		$firstnode=ltrim($firstnode,'http://');
+		$firstnode=ltrim($firstnode,'https://');
+	  
+		$this->getSession()->visit($secondurl);	
+		$this->iWaitForSeconds(2);
+		$secondnode = $this->getSession()->getCurrentUrl();
+		
+		$secondnode=ltrim($secondnode,'http://');
+		$secondnode=ltrim($secondnode,'https://');
+	  
+		if (null === $firstnode ) {
+            throw new \InvalidArgumentException(sprintf('Could not get firsturl: "%s"', $firsturl));
+        }
+		if (null === $secondnode ) {
+            throw new \InvalidArgumentException(sprintf('Could not get secondurl: "%s"', $secondurl));
+		}
+		if ($firstnode == $secondnode ) {
+		
+		}
+		else {
+		throw new \InvalidArgumentException(sprintf('First URL redirected to:"%s"', $firstnode.' Second URL redirected to: "%s"'.$secondnode));
+		//throw new \InvalidArgumentException(sprintf('target first:"%s"', $secondnode));
+		}
+    
+	}
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is used to attach a document.
@@ -916,6 +959,26 @@ public function VistExternalJobapplyUrl($country)
 		}
 		$session->visit($externalapply);
 	}
+	
+//**********************************************************************************************************************************************************************************************//
+//Purpose : This function to Sign in to linkden
+//Created on : 30 October 2014
+//Author : Lavin Malkani
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+/**
+ * @When /^I Sign in to linden with username "([^"]*)" and Password "([^"]*)"$/
+ */
+public function SignInLinkden($user,$pword) {
+	$this->getSession()->getPage()->fillField('session_key-oauth2SAuthorizeForm',$user);
+	$this->getSession()->getPage()->fillField('session_password-oauth2SAuthorizeForm',$pword);
+	$this->iClickOnTheElementWithXPath("//input[@value='Allow access']"); 
+  }
+  
+  
+
+	
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function to click on apply button on job detail page.
 //Created on : 20 August 2014
@@ -1007,6 +1070,17 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->fillField("edit-submitted-email",$email);
 			$this->getSession()->getPage()->fillField("edit-submitted-telephone-no",$tel);
 		}
+		//For job apply with linkden
+        elseif($form === "job-apply-linkden")	{
+			list($email,$tel)=preg_split("[,]",$para);
+			If ($email !=="ignore"){
+			$this->fillFieldsxpath("//form[@id='mp-linkedin-cv-apply-form']//*[@id='edit-email']",$email);
+			}
+			If ($email !=="ignore"){
+			$this->fillFieldsxpath("//form[@id='mp-linkedin-cv-apply-form']//*[@id='edit-telephone']",$tel);
+			}
+		}
+		
 		//For Job Apply Without Login
 		elseif($form === "jobapply") {
 			list($firstname,$lastname,$email,$currentjob,$currentsalary,$browsecv,$message,$bcreatalert,$bprivacy)=preg_split("[,]",$para);
