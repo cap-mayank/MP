@@ -34,6 +34,7 @@ use SensioLabs\Behat\PageObjectExtension\Context\PageObjectContext;
  */
 class FeatureContext extends MinkContext
 {
+    var $gsite="page";
     /**
      * Initializes context.
      * Every scenario gets it's own context object.
@@ -684,7 +685,8 @@ public function selectFieldsxpath($value, $locator)
  * @When /^I go to "([^"]*)" with env "([^"]*)" and country "([^"]*)"$/
  */
 public function VisitPage($site,$env,$country)
-    {	
+    {
+        $this->gsite=$site;	
 		$old="http://michaelpage:5UCred8e@wwwuat.pagesite.com.sg/";
 		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="my" or $country ==="cn") {
 			//$site = michaelpage or pagepersonnel
@@ -733,6 +735,7 @@ public function VisitPage($site,$env,$country)
  */
 public function VisitMypage($site,$env,$country)
     {	
+	    $this->gsite=$site;
 		$old="http://michaelpage:5UCred8e@wwwuat.pagesite.com.sg/mypage/profile";
 		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="my" or $country ==="cn") {
 			//$site = michaelpage or pagepersonnel
@@ -1025,38 +1028,134 @@ public function SignInLinkden($user,$pword) {
  */
 public function FillForm($form,$country,$para)
     {	
-		
+		$pagesite=$this->gsite;
 		//For Submit job spec
-		If($form === "submit-job-spec")	{
-			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$sector,$jobspec)=preg_split("[,]",$para);
+		If($form === "submit-job-spec" or $form === "upload-job-brief")	{
+			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$location_ie,$location_jp,$sector,$detail,$jobspec)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-company",$company);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
-			$var='location_'.$country;
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
+			if($country!== "ie")
+			{
+			$var='location_'.$country;
+			
+			// Logic for generating the Location ID based on Sector ID
+				if($country === "us" or ($country === "uk" AND $pagesite === "pagepersonnel"))
+				{	  
+					if (strpos($sector,' ') > 0) // Finding ID of sector element with multiple words during runtime.
+					{	
+					   $id="";
+					   $newele=strtolower($sector); // Converts every upper-case character  into lower-case
+					   $newID=explode(" ", $newele); // Break the string into Array.
+					   $max=count($newID); // Return the number of elements in an Array.
+					   $i=0;
+						while($i<$max)
+						{
+							// IF Loop for replacing the "&" with "and" 
+							if ($newID[$i]=="&")
+							{
+								$newID[$i]="and";
+							}
+							$id=$id . "-" . $newID[$i]; // Generate the new ID
+							$genID =ltrim($id,"-"); // Remove characters from the left side of a string
+							$i++;
+						}
+					}
+					else
+					{
+						$ele=strtolower($sector);
+						$genID=$ele;
+					}
+					
+					$old="edit-submitted-logistics-locations";
+					$new = str_replace("logistics",$genID,$old);
+					$this->getSession()->getPage()->selectFieldOption($new,$$var);
+				}
+				else
+				{
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
+				}
+			}
+			
+			if($country === "uk" AND $pagesite === "pagepersonnel") 
+			{
+			$this->getSession()->getPage()->fillField("edit-submitted-details-of-job-specification",$detail); 			
+			}
+			else
+			{
+			$this->getSession()->getPage()->fillField("edit-submitted-details-of-job-spec",$detail); 
+			}
 			$this->uploadLocalFile($jobspec,"//input[@id='edit-submitted-mp-details-of-job-specification-upload']");
 		}
 		//For Request Call Back
 		elseif($form === "request-call-back")	{
-			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$message)=preg_split("[,]",$para);
+			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_us,$location_uk,$location_ie,$location_jp,$Message)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-job-title",$job_title);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-organisation",$organisation);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
+			if($country!="ie")
+			{
 			$var='location_'.$country;
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
-			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$message);
+			// Logic for generating the Location ID based on Sector ID
+				if($country === "us" or ($country === "uk" AND $pagesite === "pagepersonnel"))
+				{	  
+					if (strpos($sector,' ') > 0) //  Finding ID of sector element with multiple words during runtime.
+					{	
+					   $id="";
+					   $newele=strtolower($sector); // Converts every upper-case character  into lower-case
+					   $newID=explode(" ", $newele); // Break the string into Array.
+					   $max=count($newID); // Return the number of elements in an Array.
+					   $i=0;
+						while($i<$max)
+						{
+							// IF Loop for replacing the "&" with "and" 
+							if ($newID[$i]=="&")
+							{
+								$newID[$i]="and";
+							}
+							$id=$id . "-" . $newID[$i]; // Generate the new ID
+							$genID =ltrim($id,"-"); // Remove characters from the left side of a string
+							$i++;
+						}
+					}
+					else
+					{
+						$ele=strtolower($sector);
+						$genID=$ele;
+					}
+					
+					$old="edit-submitted-logistics-locations";
+					$new = str_replace("logistics",$genID,$old);
+					$this->getSession()->getPage()->selectFieldOption($new,$$var);
+				}
+				else
+				{
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
+				}
+			}
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$Message);
 		}
         //For Feedback form
-         elseif($form === "submit-feedback")	{
-			list($name,$email,$Complaint_subject,$Comments)=preg_split("[,]",$para);
+          elseif($form === "submit-feedback")	{
+		    list($name,$email,$telephone,$Complaint_subject,$Comments)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-feedback-subject",$Complaint_subject);
+			if($country==="uk" and $pagesite==="pagepersonnel"){
+			$this->getSession()->getPage()->fillField("edit-submitted-phone-number",$telephone);
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-complaint-subject",$Complaint_subject); 
+			}
+			elseif($country==="us"){
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-feedback-subject",$Complaint_subject);
+			}
+			else
+			{
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-feedback-subject",$Complaint_subject); 
+			}
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-comments",$Comments);
 		}
 		//For salary appraisal
@@ -1466,6 +1565,33 @@ public function SearchWithBrowseJobs($search)
 			throw new Exception('Number of jobs filtered after job type filtering is more than expected');
 		}
 
+	}
+	
+//************************************************************************************************************************************************
+//Purpose : This function is to delete the CV
+//Created on : 26/8/2014
+//Author : Aniket Kharade
+//Improvements/Modifications/Changes history|Reason                                                            |Date                    |Done By             |
+//
+//****************************************************************************************************
+
+/**
+ * @When /^I check existing CV$/
+ */
+
+public function CheckExistingCV() {
+
+			$cvPresent=$this->existelementxpath("//form[@id='mp-mypage-cv-select-form']"); //Check whether the Element is present.
+			if ($cvPresent!= null)	{
+				$existingCV=$this->iCountChild("//form[@id='mp-mypage-cv-select-form']//tbody/tr"); //Returns the count of Element.
+				for ($i=$existingCV; $i>=1; $i--) {
+				    $this->iClickOnTheElementWithXPath("//tr[$i]//*[@class='delete-cv']");
+					$this->iWaitForSeconds(5);
+					$this->iClick("//*[@value='Confirm']");
+					$this->iWaitForSeconds(2);
+					  
+				}
+			} 
 	}
 
 //END OF DRIVER FUNCTIONS FOR PAGES HAVING XPATHS MENTIONED------------------------------------------------------
