@@ -558,26 +558,22 @@ public function iWaitForTheSuggestionBoxToAppear()
  * @When /^I hover over the element "([^"]*)"$/
  */
 public function iHoverOverTheElement($locator)
-{
+{		
+		$element=null;
         $session = $this->getSession();
-		
-		if (substr($locator,0,1)=='.') {
-		  $element = $session->getPage()->find('css', $locator);	//returns the element after running the query by using css
-		}
+		$xlocator= "//span[contains(text(),'HoverField')]";
+		$finallocator = str_replace("HoverField",$locator,$xlocator);
 
-		elseif (substr($locator,0,1)=='/' || substr($locator,0,5)=='http:') {
+		if (substr($finallocator,0,1)=='/' || substr($finallocator,0,5)=='http:') {
 		  $element = $session->getPage()->find(
             'xpath',
-            $session->getSelectorsHandler()->selectorToXpath('xpath', $locator)
+            $session->getSelectorsHandler()->selectorToXpath('xpath', $finallocator)
         ); 			//returns the element after running the query by using xpath
 		}
-		
-
         // errors must not pass silently throw exception
         if (null === $element) {
             throw new \InvalidArgumentException(sprintf('Could not evaluate CSS selector or XPath: "%s"', $locator));
         }
-
         // ok, let's hover it
 		$element->focus();
         $element->mouseOver();
@@ -870,6 +866,15 @@ public function ClickOn($value,$place)
 			$nvalue=str_replace("job ","",$value);
 			$xpath=str_replace("1",$nvalue,$prev);
 		}
+		if ($place === "meganav menu")	{
+			$prev="//nav[@id='meganav-mega_menu_option']//a[contains(text(),'internal')]";
+			list($menuoption, $internaloption) = explode(":", $value);
+			//to get the correct mega menu
+			//NOTE: menuoption should be in lower case and should be seperated by an _ and not spaces between the words
+			$mvalue=str_replace("option",$menuoption,$prev);
+			//to click on the option inside the specified mega menu
+			$xpath=str_replace("internal",$internaloption,$mvalue);
+		}
 		$this->iClickOnTheElementWithXPath($xpath);
 		
 	}	
@@ -911,9 +916,9 @@ public function FillIn($data,$value,$place)
 public function GrabTextWithXpath($xpath)
 	{
 		$grabresult=$this->getSession()->getPage()->find('xpath',$xpath);
-		$searchresult=preg_split("[\s]",(string)$grabresult->getText());
-		return $searchresult;
-		
+		//$searchresult=preg_split("[\s]",(string)$grabresult->getText());
+		$result=(string)$grabresult->getText();
+		return $result;
 	}
 
 //**********************************************************************************************************************************************************************************************//
@@ -979,9 +984,6 @@ public function SignInLinkden($user,$pword) {
 	$this->iClickOnTheElementWithXPath("//input[@value='Allow access']"); 
   }
   
-  
-
-	
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function to click on apply button on job detail page.
 //Created on : 20 August 2014
@@ -1299,7 +1301,8 @@ public function SearchWithKeyword($search,$pagesite)
 			}
 			$this->iPressButton("Search");
 			$i++;
-			$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+			$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+			$searchresult=preg_split("[\s]",(string)$grabresult);
 			if($searchresult[0] === "0")	{
 				throw new Exception('I see 0 matching jobs for the search(es) mentioned');
 			}
@@ -1329,7 +1332,8 @@ public function SearchWithKeyword($search,$pagesite)
 		$this->iWaitForSeconds(2);
 
 		//get the number of matching jobs
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
 		//Grab initial count
 		$fcount=$searchresult[0];
 		$this->iWaitForSeconds(2);
@@ -1337,7 +1341,8 @@ public function SearchWithKeyword($search,$pagesite)
 		//click on 1st location on location filter to check the matching jobs have reduced
 		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-locationparents-all']//li/a");
 		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
 		$loccount=$searchresult[0];
 		if($loccount>$fcount)	{
 			throw new Exception('Number of jobs filtered after location filtering is more than expected');
@@ -1347,7 +1352,8 @@ public function SearchWithKeyword($search,$pagesite)
 		//click on 1st sector on sector filter to check the matching jobs have reduced
 		$this->iClickOnTheElementWithXPath("//*[contains(@class,' sector')]//li/a");
 		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
 		$seccount=$searchresult[0];
 		if($seccount>$loccount)	{
 			throw new Exception('Number of jobs filtered after sector filtering is more than expected');
@@ -1357,7 +1363,8 @@ public function SearchWithKeyword($search,$pagesite)
 		//click on 1st subsector on subsector filter to check the matching jobs have reduced(or remain same)
 		$this->iClickOnTheElementWithXPath("//*[contains(@class,'subsector')]//li/a");
 		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
 		$subcount=$searchresult[0];
 		if($subcount>$seccount)	{
 			throw new Exception('Number of jobs filtered after subsector filtering is more than expected');
@@ -1367,14 +1374,15 @@ public function SearchWithKeyword($search,$pagesite)
 		//click on 1st contract type on job type filter to check the matching jobs have reduced(or remain same)
 		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-contract-type']//li/a");
 		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
 		$concount=$searchresult[0];
 		if($concount>$subcount)	{
 			throw new Exception('Number of jobs filtered after job type filtering is more than expected');
 		}
-
+		
 	}
-
+	
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function grabs the search performed to verify on saved search and job alert and validate the search result through the saved search and alert created
 //Pre-requisite : User should be on job search result page
@@ -1389,64 +1397,70 @@ public function SearchWithKeyword($search,$pagesite)
 public function VerifySavedSearchJobAlertWithKeyword()
 	{
 		//Grab the search result to compare the search or alert leads to same page
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$grabresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$searchresult=preg_split("[\s]",(string)$grabresult);
+		$searchcount=$searchresult[0];
 		//Grab the keyword and filters for comparing name of search saved and alert created
 		//Run time keyword grab from search textbox
 		$xkeyword=$this->getSession()->getPage()->find('xpath',"//form[@id='views-exposed-form-job-search-job-search']//input[@id='edit-search']");
 		$keyword=$xkeyword->getValue();
 		//Run time location selected grab
 		$alocation=$this->GrabTextWithXpath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-locationparents-all']//span[contains(text(),'Remove')]");
-		$loccount=count($alocation);
+		$atextlocation=preg_split("[\s]",$alocation);
+		$loccount=count($atextlocation);
 		$maxcount=$loccount;
-		//Run Time sector selected grab
+		//Run Time sector selected grab and text count 'e.g: "Remove England filter" -> count=3
 		$asector=$this->GrabTextWithXpath("//*[contains(@class,' sector')]//span[contains(text(),'Remove')]");
-		$seccount=count($asector);
+		$atextsector=preg_split("[\s]",$asector);
+		$seccount=count($atextsector);
 			if($seccount>$maxcount){
 				$maxcount=$seccount;
 			}
-		//Run Time sub-sector selected grab
+		//Run Time sub-sector selected grab and text count
 		$asubsector=$this->GrabTextWithXpath("//*[contains(@class,'subsector')]//span[contains(text(),'Remove')]");
-		$subseccount=count($asubsector);
+		$atextsubsector=preg_split("[\s]",$asubsector);
+		$subseccount=count($atextsubsector);
 			if($subseccount>$maxcount){
 				$maxcount=$subseccount;
 			}
-		//Run Time job type selected grab
+		//Run Time job type selected grab and text count
 		$ajobtype=$this->GrabTextWithXpath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-contract-type']//span[contains(text(),'Remove')]");
-		$typecount=count($ajobtype);
+		$atextjobtype=preg_split("[\s]",$ajobtype);
+		$typecount=count($atextjobtype);
 			if($typecount>$maxcount){
 				$maxcount=$typecount;
 			}
-
 		//Generate the name in the format of saved search and alert created
-		$i=1;$location=" ";$sector=" ";$subsector=" ";$jobtype=" ";
+		$i=1;$location="";$sector="";$subsector="";$jobtype="";
+		//Loop to grab only the name of the texts which needs to be grabbed e.g.: in Text "Remove England filter" only grab "England"
 		while($i<$maxcount-1){
 			
 			if($i<$loccount-1){
-				if ($alocation[$i] != "filter"){
-					$location.=$alocation[$i]." ";
+				if ($atextlocation[$i] != "filter"){
+					$location.=$atextlocation[$i]." ";
 				}
 			}
 			if($i<$seccount-1){
-				if ($asector[$i] != "filter"){
-					$sector.=$asector[$i]." ";
+				if ($atextsector[$i] != "filter"){
+					$sector.=$atextsector[$i]." ";
 				}
 			}
 			if($i<$subseccount-1){
-				if ($asubsector[$i] != "filter"){
-					$subsector.=$asubsector[$i]." ";
+				if ($atextsubsector[$i] != "filter"){
+					$subsector.=$atextsubsector[$i]." ";
 				}
 			}
 			if($i<$typecount-1){
-				if ($ajobtype[$i] != "filter"){
-					$jobtype.=$ajobtype[$i];
+				if ($atextjobtype[$i] != "filter"){
+					$jobtype.=$atextjobtype[$i];
 				}
 			}
 			$i++;
 		}
-		$title_search=$keyword." :".$location.":".$sector.":".$subsector.":".$jobtype;
+		$title_search=$keyword." : ".$location.": ".$sector.": ".$subsector.": ".$jobtype;
 
 		//Goto Mypage profile
-		$this->iClickOnTheElementWithXPath("//a[contains(@*,'mega_menu_mypage')]");
+		$this->iClickOnTheElementWithXPath("//a[@data-meganav='mega_menu_mypage']");
 		$this->iWaitForSeconds(2);
 
 		//Click on Manage your saved search
@@ -1457,11 +1471,14 @@ public function VerifySavedSearchJobAlertWithKeyword()
 		if($selement === null){
 			throw new \InvalidArgumentException(sprintf('Could not find the saved search with title : "%s"', $title_search));
 		}
+		//Click on the saved search which has been captured if present
 		$this->iClickOnTheElementWithXPath("//a[@title='Rerun search'][contains(text(),'$title_search')]");
 		$this->iWaitForSeconds(2);
 		//Verify same results are obtained
-		$savedresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		if($savedresult!=$searchresult){
+		$grabsavedresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$savedresult=preg_split("[\s]",(string)$grabsavedresult);
+		$savedcount=$savedresult[0];
+		if($savedcount!=$searchcount){
 			throw new Exception('The saved search navigation did not obtain same results as expected');
 		}
 
@@ -1480,8 +1497,10 @@ public function VerifySavedSearchJobAlertWithKeyword()
 		$this->iClickOnTheElementWithXPath("//a[@title='Rerun search'][contains(text(),'$title_search')]");
 		$this->iWaitForSeconds(2);
 		//Verify same results are obtained
-		$alertresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		if($alertresult!=$searchresult){
+		$grabalertresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$alertresult=preg_split("[\s]",(string)$grabalertresult);
+		$alertcount=$alertresult[0];
+		if($alertcount!=$searchcount){
 			throw new Exception('The job alert navigation did not obtain same results as expected');
 		}
 
@@ -1489,8 +1508,8 @@ public function VerifySavedSearchJobAlertWithKeyword()
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function covers entire search functionality scenarios while searching through browse for jobs (in progress)
-//Created on : 21 May 2014
-//Author : Sahil Mehta
+//Created on :
+//Author :
 //Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
 //
 //**********************************************************************************************************************************************************************************************//
@@ -1499,71 +1518,6 @@ public function VerifySavedSearchJobAlertWithKeyword()
  */
 public function SearchWithBrowseJobs($search)
 	{
-		//check for keywords passed if not throw exception
-		if ($search === null or $search === "")	{
-            throw new Exception('No sector is mentioned to search from Browse your jobs');
-		}
-		//Search functionality with keyword and using filters present on job search result page
-		$this->FillIn($keywords[0],"search","search jobs");
-		//select 0 for min salary
-		$this->selectFieldsxpath($values[0],"//*[@id='salary-select-wrapper']//*[@id='edit-field-job-salary-min']");
-		//select highest value for max salary
-		$this->selectFieldsxpath($values[$salmax-1],"//*[@id='salary-select-wrapper']//*[@id='edit-field-job-salary-max']");
-		$this->iPressButton("Search");
-		$this->iWaitForSeconds(2);
-
-		//Salary Filter on job search result page
-		//select 0 for min salary
-		//$this->selectFieldsxpath($values[0],"//*[@id='views-exposed-form-job-search-jobsearch-facet-filter']//*[@id='edit-field-job-salary-min']");
-		//select highest value for max salary
-		//$this->selectFieldsxpath($values[$salmax-1],"//*[@id='views-exposed-form-job-search-jobsearch-facet-filter']//*[@id='edit-field-job-salary-max']");
-		//$this->iPressButton("Filter Salary");
-		$this->iWaitForSeconds(2);
-
-		//get the number of matching jobs
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		//Grab initial count
-		$fcount=$searchresult[0];
-		$this->iWaitForSeconds(2);
-
-		//click on 1st location on location filter to check the matching jobs have reduced
-		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-locationparents-all']//li/a");
-		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		$loccount=$searchresult[0];
-		if($loccount>$fcount)	{
-			throw new Exception('Number of jobs filtered after location filtering is more than expected');
-		}
-
-		$this->iWaitForSeconds(2);
-		//click on 1st sector on sector filter to check the matching jobs have reduced
-		$this->iClickOnTheElementWithXPath("//*[contains(@class,' sector')]//li/a");
-		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		$seccount=$searchresult[0];
-		if($seccount>$loccount)	{
-			throw new Exception('Number of jobs filtered after sector filtering is more than expected');
-		}
-
-		$this->iWaitForSeconds(2);
-		//click on 1st subsector on subsector filter to check the matching jobs have reduced(or remain same)
-		$this->iClickOnTheElementWithXPath("//*[contains(@class,'subsector')]//li/a");
-		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		$subcount=$searchresult[0];
-		if($subcount>$seccount)	{
-			throw new Exception('Number of jobs filtered after subsector filtering is more than expected');
-		}
-
-		$this->iWaitForSeconds(2);
-		//click on 1st contract type on job type filter to check the matching jobs have reduced(or remain same)
-		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-contract-type']//li/a");
-		$this->iWaitForSeconds(2);
-		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
-		$concount=$searchresult[0];
-		if($concount>$subcount)	{
-			throw new Exception('Number of jobs filtered after job type filtering is more than expected');
-		}
 
 	}
 	
