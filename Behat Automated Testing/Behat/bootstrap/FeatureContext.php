@@ -48,141 +48,131 @@ class FeatureContext extends MinkContext
 	}
 
 
-    /**
-     * @Given /^ I log in with "([^"]*)" and "([^"]*)"$/
-     */
-    public function thatILogInWithAnd($username, $password)
-    {
-        $this->getSession()->setBasicAuth($username,$password);
-    }
+/**
+ * @Given /^ I log in with "([^"]*)" and "([^"]*)"$/
+ */
+public function thatILogInWithAnd($username, $password)
+	{
+		$this->getSession()->setBasicAuth($username,$password);
+	}
 
-	  /**
-	   * @When /^I click apply for job/
-	   */
-	  public function clickApply()
-	  {
+/**
+* @When /^I click apply for job/
+*/
+public function clickApply()
+	{
 		$old = $session = $this->getSession()->getCurrentUrl();
 		$new = str_replace("job-detail","job-apply",$old);
 		$this->getSession()->visit($new);
-	  }
+	}
 
 
-  /**
-   * @When /^I search for "([^"]*)"$/
-   */
-  public function iSearchFor($arg1)
-  {
-    $this->fillField('edit-search', $arg1);
-  }
+/**
+* @When /^I search for "([^"]*)"$/
+*/
+public function iSearchFor($arg1)
+	{
+		$this->fillField('edit-search', $arg1);
+	}
+
+/**
+* @When /^I search for location "([^"]*)"$/
+*/
+public function iSearchForLocation ($location)
+	{
+		$this->fillField('edit-location',$location);
+	}
   
-   /**
-   * @When /^I search for location "([^"]*)"$/
-   */
-  public function iSearchForLocation ($location)
-  {
-    $this->fillField('edit-location',$location);
-  }
   
+/**
+* @When /^I take screenshot/
+*/
+public function takeScreen()
+	{
+		static $screenName = 1;
+		file_put_contents('..\Screenshots\\' . $screenName . '.png', $this->getSession()->getScreenshot());
+		$screenName = $screenName + 1;
+	}
+
+/**
+* @When /^I set min salary "([^"]*)"$/
+*/
+public function minSalary($min)
+	{
+		$this->fillField('edit-field-job-salary-min',$min);
+	}
   
-   /**
-   * @When /^I take screenshot/
-   */
-  public function takeScreen()
-  {
-   static $screenName = 1;
-   file_put_contents('..\Screenshots\\' . $screenName . '.png', $this->getSession()->getScreenshot());
-   $screenName = $screenName + 1;
-  }
+/**
+* @When /^I set max salary "([^"]*)"$/
+*/
+public function maxSalary($max)
+	{
+		$this->fillField('edit-field-job-salary-max',$max);
+	}
   
-  /**
-   * @When /^I set min salary "([^"]*)"$/
-   */
-  public function minSalary($min)
-  {
-    $this->fillField('edit-field-job-salary-min',$min);
-  }
-  
-  /**
-   * @When /^I set max salary "([^"]*)"$/
-   */
-  public function maxSalary($max)
-  {
-    $this->fillField('edit-field-job-salary-max',$max);
-  }
-  
-   /**
-   * @Given /^I set the cookie/
-   */
-  public function iSetCookie()
-  {
-    $this->getSession()->setCookie("__xwny", "");
-  }
+/**
+* @Given /^I set the cookie/
+*/
+public function iSetCookie()
+	{
+		$this->getSession()->setCookie("__xwny", "");
+	}
   
 
 //START LOGIN FUNCTIONS ------------------------------------------------------
 
 /**
-   * @When /^I enter username "([^"]*)"$/
-   */
+* @When /^I enter username "([^"]*)"$/
+*/
+public function userName ($user) 
+	{
+		$this->fillField('edit-name',$user);
+	}
 
-  public function userName ($user) {
-  
-  $this->fillField('edit-name',$user);
-   
-  }
-
-
-  /**
-   * @When /^I enter password "([^"]*)"$/
-   */
-
-  public function password ($pword) {
-  
-  $this->fillField('edit-pass',$pword);
-   
-  }
+/**
+* @When /^I enter password "([^"]*)"$/
+*/
+public function password ($pword) 
+	{
+		$this->fillField('edit-pass',$pword);
+	}
 
 
 //END LOGIN FUNCTIONS---------------------------------------------------------
 
-
-  
-  
-   /**
-     * @Given /^I wait (\d+) seconds$/
-     */
-    public function iWaitForSeconds($seconds)
-    {
-         $this->getSession()->wait($seconds*1000);
-    }
+/**
+* @Given /^I wait (\d+) seconds$/
+*/
+public function iWaitForSeconds($seconds)
+	{
+		$this->getSession()->wait($seconds*1000);
+	}
   
 //START RESIZE FUNCTIONS ----------------------------------------------
   
-  /**
-   * @Given /^I maximise the window/
-   */
-   public function iMaximise()
+/**
+* @Given /^I maximise the window/
+*/
+public function iMaximise()
    {
-     $this->getSession()->resizeWindow(1366,728, null);
+		$this->getSession()->resizeWindow(1366,728, null);
    }
   
-  /**
-   * @When /^I use a phone/
-   */
-  public function resizeIphone(){
+/**
+* @When /^I use a phone/
+*/
+public function resizeIphone()
+	{
+		$this->getSession()->resizeWindow(640,960,null);
+	}
   
-  $this->getSession()->resizeWindow(640,960,null);
-  
-  }
-  
-   /**
-   * @When /^I use a tablet/
-   */
-  public function resizeIpad(){
-  
-  $this->getSession()->resizeWindow(1024,768,null);
-  
-  }
+/**
+* @When /^I use a tablet/
+*/
+public function resizeIpad()
+	{
+		$this->getSession()->resizeWindow(1024,768,null);
+	}
   
   
 //END RESIZE FUNCTIONS------------------------------------------------------  
@@ -195,52 +185,47 @@ class FeatureContext extends MinkContext
 //
 //**********************************************************************************************************************************************************************************************//
 
- 
 //GENERIC "I Click" FUNCTION TO AID GHERKIN SYNTAX
 
-  /**
-  *@When /^I click "([^"]*)"$/
-  */ 
-  public function iClick ($arg1){
+/**
+*@When /^I click "([^"]*)"$/
+*/ 
+public function iClick ($arg1)
+	{
+		if (substr($arg1,0,1)=='.') {
+		  $this->iPressTheElement($arg1);
+		}
 
-   if (substr($arg1,0,1)=='.') {
-      $this->iPressTheElement($arg1);
-    }
+		elseif (substr($arg1,0,1)=='/' || substr($arg1,0,5)=='http:') {
+		  $this->iClickOnTheElementWithXPath($arg1);
+		}
 
-    elseif (substr($arg1,0,1)=='/' || substr($arg1,0,5)=='http:') {
-      $this->iClickOnTheElementWithXPath($arg1);
-    }
-    
-    else{
-      $this->iClickOnTheText($arg1);
-    }
-
-
-  }
-
-
-
-   /**
-   * @When /^I press the element "([^"]*)"$/
-   */
-   public function iPressTheElement ($arg1){
-   
-   $node = $this->getSession()->getPage()->find('css', $arg1);
-      $node->click();
-
-      if (null === $arg1) {
-            throw new \InvalidArgumentException(sprintf('Could not evaluate Element: "%s"', $arg1));
-        }
-	 
+		else{
+		  $this->iClickOnTheText($arg1);
+		}
 	}
 
-	/**
-     * Click on the element with the provided xpath query
-     *
-     * @When /^I click on the element with xpath "([^"]*)"$/
-     */
-	 //CLICK ON HREF FUNCTION
-    public function iClickOnTheElementWithXPath($xpath)
+/**
+* @When /^I press the element "([^"]*)"$/
+*/
+public function iPressTheElement ($arg1)
+   {
+		$node = $this->getSession()->getPage()->find('css', $arg1);
+		$node->click();
+		
+		if (null === $arg1) {
+			throw new \InvalidArgumentException(sprintf('Could not evaluate Element: "%s"', $arg1));
+		}
+
+	}
+
+/**
+ * Click on the element with the provided xpath query
+ *
+ * @When /^I click on the element with xpath "([^"]*)"$/
+ */
+ //CLICK ON HREF FUNCTION
+public function iClickOnTheElementWithXPath($xpath)
     {
         $session = $this->getSession(); // get the mink session
         $element = $session->getPage()->find('xpath',$xpath);
@@ -253,12 +238,12 @@ class FeatureContext extends MinkContext
  
     }
 
-    /**
-    *
-    *
-    * @When /^I click on the text "([^"]*)"$/
-    */
-    public function iClickOnTheText($text)
+/**
+*
+*
+* @When /^I click on the text "([^"]*)"$/
+*/
+public function iClickOnTheText($text)
     {
         $session = $this->getSession();
         $element = $session->getPage()->find(
@@ -272,12 +257,11 @@ class FeatureContext extends MinkContext
         $element->click();
  
     }
-
   
-    /**
-   * @When /^I click the button "([^"]*)"$/
-   */
-  public function iPressButton($button)
+/**
+* @When /^I click the button "([^"]*)"$/
+*/
+public function iPressButton($button)
   {
     $this->pressButton($button);
   }
@@ -290,20 +274,19 @@ class FeatureContext extends MinkContext
 //
 //**********************************************************************************************************************************************************************************************//
   
-   /**
-   * @Then /^I check url "([^"]*)"$/
-   */
-  public function iCheckurl($url)
-  {
-      $node = $this->getSession()->getCurrentUrl();
-      if (null === $node ) {
-            throw new \InvalidArgumentException(sprintf('Could not get url: "%s"', $url));
-        }
-    if (preg_match("/".$url."/",$node) == 1) {
-      
-    }
-    
-  }
+/**
+* @Then /^I check url "([^"]*)"$/
+*/
+public function iCheckurl($url)
+	{
+		$node = $this->getSession()->getCurrentUrl();
+		if (null === $node ) {
+			throw new \InvalidArgumentException(sprintf('Could not get url: "%s"', $url));
+		}
+		if (preg_match("/".$url."/",$node) == 1) {
+
+		}  
+	}
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking a part of the url is as expected
 //Created on : 1 oct 2014
@@ -312,29 +295,29 @@ class FeatureContext extends MinkContext
 //
 //**********************************************************************************************************************************************************************************************//
   
-   /**
-   * @Then /^I check redirecturl "([^"]*)"$/
-   */
-  public function iCheckredirecturl($url)
-  {
-      $url=ltrim($url,'http://');
-	  $url=ltrim($url,'https://');
-	  
-	  $node = $this->getSession()->getCurrentUrl();
-      $node=ltrim($node,'http://');
-	  $node=ltrim($node,'https://');
-	  
-	  if (null === $node ) {
-            throw new \InvalidArgumentException(sprintf('Could not get url: "%s"', $url));
-        }
-    if ($node == $url ) {
-		
-    }
-	else{
-		throw new \InvalidArgumentException(sprintf('incorrect redirection: "%s"', $node));
-	}
+/**
+* @Then /^I check redirecturl "([^"]*)"$/
+*/
+public function iCheckredirecturl($url)
+	{
+		$url=ltrim($url,'http://');
+		$url=ltrim($url,'https://');
+
+		$node = $this->getSession()->getCurrentUrl();
+		$node=ltrim($node,'http://');
+		$node=ltrim($node,'https://');
+
+		if (null === $node ) {
+			throw new \InvalidArgumentException(sprintf('Could not get url: "%s"', $url));
+		}
+		if ($node == $url ) {
+
+		}
+		else	{
+			throw new \InvalidArgumentException(sprintf('incorrect redirection: "%s"', $node));
+		}
     
-  }
+	}
   
   //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking Url redirect
@@ -344,11 +327,11 @@ class FeatureContext extends MinkContext
 //
 //**********************************************************************************************************************************************************************************************//
   
-   /**
-   * @Then /^I Compare RedirectUrl "([^"]*)" and "([^"]*)"$/
-   */
-  public function iCompareredirecturl($firsturl,$secondurl)
-  {
+/**
+* @Then /^I Compare RedirectUrl "([^"]*)" and "([^"]*)"$/
+*/
+public function iCompareredirecturl($firsturl,$secondurl)
+	{
 		$this->getSession()->visit($firsturl);
 		$this->iWaitForSeconds(2);
 		$firstnode = $this->getSession()->getCurrentUrl();
@@ -386,10 +369,10 @@ class FeatureContext extends MinkContext
 //
 //**********************************************************************************************************************************************************************************************//
 
-    /**
-    * @Given /^I attach the local file "([^"]*)" to "([^"]*)"$/
-    */
-    public function uploadLocalFile($file, $xpath)
+/**
+* @Given /^I attach the local file "([^"]*)" to "([^"]*)"$/
+*/
+public function uploadLocalFile($file, $xpath)
     {
 	   // $session = $this->getSession(); // get the mink session
         //$element = $session->getPage()->find('xpath', $xpath); 
@@ -419,9 +402,10 @@ class FeatureContext extends MinkContext
  * @Given /^I check for element with xpath to reload "([^"]*)"$/
  *
  */
- public function existelementreload($xpath){
-	//$i=0;
-	//while($i < 5){
+ public function existelementreload($xpath)
+	{
+		//$i=0;
+		//while($i < 5){
         $session = $this->getSession(); // get the mink session
         $element = $session->getPage()->find(
             'xpath',
@@ -438,8 +422,7 @@ class FeatureContext extends MinkContext
 		//else {
 			//$i=6;
 		//}
-	//}
-  
+	//} 
  }
 
 //**********************************************************************************************************************************************************************************************//
@@ -454,7 +437,8 @@ class FeatureContext extends MinkContext
  * @Given /^I check for element with xpath "([^"]*)"$/
  *
  */
- public function existelementxpath($xpath){
+ public function existelementxpath($xpath)
+	{
         $session = $this->getSession(); // get the mink session
         $element = $session->getPage()->find(
             'xpath',
@@ -471,7 +455,7 @@ class FeatureContext extends MinkContext
 			echo $element->isVisible();
 		}
   
- }
+	}
  
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking the presence of the element with the locator as css
@@ -485,7 +469,8 @@ class FeatureContext extends MinkContext
  * @Given /^I check for element with css "([^"]*)"$/
  *
  */
- public function existelementcss($css){
+ public function existelementcss($css)
+	{
         $session = $this->getSession(); // get the mink session
         $element = $this->getSession()->getPage()->find('css', $arg1);
  
@@ -496,7 +481,7 @@ class FeatureContext extends MinkContext
 		else {
 			return $element->isVisible();
 		}
- }
+	}
  
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking the presence of the element
@@ -510,23 +495,24 @@ class FeatureContext extends MinkContext
  * @Given /^I check for element "([^"]*)"$/
  * 
  */
- public function existelement($arg1){
- 
-    if (substr($arg1,0,1)=='.') {
-      $el = $this->existelementcss($arg1);
-    }
+ public function existelement($arg1)
+	{
+	 
+		if (substr($arg1,0,1)=='.') {
+		  $el = $this->existelementcss($arg1);
+		}
 
-    elseif (substr($arg1,0,1)=='/' || substr($arg1,0,5)=='http:') {
-      $el = $this->existelementxpath($arg1);
-    }
-	
-	if (null === $el) {
-		throw new \InvalidArgumentException(sprintf('Could not see : "%s"', $arg1));
+		elseif (substr($arg1,0,1)=='/' || substr($arg1,0,5)=='http:') {
+		  $el = $this->existelementxpath($arg1);
+		}
+		
+		if (null === $el) {
+			throw new \InvalidArgumentException(sprintf('Could not see : "%s"', $arg1));
+		}
+		elseif ($el != 1) {
+			throw new \InvalidArgumentException(sprintf('Element not visible on page : "%s"', $arg1));
+		}
 	}
-	elseif ($el != 1) {
-		throw new \InvalidArgumentException(sprintf('Element not visible on page : "%s"', $arg1));
-	}
-}
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for waiting for suggestion box to appear
@@ -540,11 +526,11 @@ class FeatureContext extends MinkContext
  * @Then /^I wait for the suggestion box to appear$/
  */
 public function iWaitForTheSuggestionBoxToAppear()
-{
-    $this->getSession()->wait(5000,
-        "$('.autocomplete').children().length > 0"
-    );
-}
+	{
+		$this->getSession()->wait(5000,
+			"$('.autocomplete').children().length > 0"
+		);
+	}
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for implementing mouse over a field
@@ -558,7 +544,7 @@ public function iWaitForTheSuggestionBoxToAppear()
  * @When /^I hover over the element "([^"]*)"$/
  */
 public function iHoverOverTheElement($locator)
-{		
+	{		
 		$element=null;
         $session = $this->getSession();
 		$xlocator= "//span[contains(text(),'HoverField')]";
@@ -577,7 +563,7 @@ public function iHoverOverTheElement($locator)
         // ok, let's hover it
 		$element->focus();
         $element->mouseOver();
-}
+	}
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for counting and comparing the number of child elements in specified locator
@@ -591,7 +577,7 @@ public function iHoverOverTheElement($locator)
  * @When /^I count number of child elements for "([^"]*)"$/
  */
 public function iCountChild($locator)
-{
+	{
         $session = $this->getSession();
 		if (substr($locator,0,1)=='.') {
 		  $element = $session->getPage()->findAll('css', $locator);	//returns the element after running the query by using css
@@ -615,7 +601,7 @@ public function iCountChild($locator)
 		//If ($size != $number) {
 		//	throw new \InvalidArgumentException(sprintf('The number of child elements not as expected: "%s"', $number));
 		//}
-}
+	}
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is to fill in the field with the locator as xpath
@@ -795,7 +781,8 @@ public function checkFieldxpath($locator)
   /**
    * @When /^I login with "([^"]*)" and "([^"]*)"$/
    */
-  public function Login($user,$pword) {
+  public function Login($user,$pword) 
+  {
 	$this->getSession()->getPage()->fillField('edit-name',$user);
 	$this->getSession()->getPage()->fillField('edit-pass',$pword);
 	$this->iClickOnTheElementWithXPath("//input[@id='edit-submit'][not(contains(@onclick,'return hideCv()'))]"); 
@@ -978,11 +965,12 @@ public function VistExternalJobapplyUrl($country)
 /**
  * @When /^I Sign in to linden with username "([^"]*)" and Password "([^"]*)"$/
  */
-public function SignInLinkden($user,$pword) {
-	$this->getSession()->getPage()->fillField('session_key-oauth2SAuthorizeForm',$user);
-	$this->getSession()->getPage()->fillField('session_password-oauth2SAuthorizeForm',$pword);
-	$this->iClickOnTheElementWithXPath("//input[@value='Allow access']"); 
-  }
+public function SignInLinkden($user,$pword) 
+	{
+		$this->getSession()->getPage()->fillField('session_key-oauth2SAuthorizeForm',$user);
+		$this->getSession()->getPage()->fillField('session_password-oauth2SAuthorizeForm',$pword);
+		$this->iClickOnTheElementWithXPath("//input[@value='Allow access']"); 
+	}
   
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function to click on apply button on job detail page.
@@ -1528,13 +1516,11 @@ public function SearchWithBrowseJobs($search)
 //Improvements/Modifications/Changes history|Reason                                                            |Date                    |Done By             |
 //
 //****************************************************************************************************
-
 /**
  * @When /^I check existing CV$/
  */
-
-public function CheckExistingCV() {
-
+public function CheckExistingCV() 
+	{
 			$cvPresent=$this->existelementxpath("//form[@id='mp-mypage-cv-select-form']"); //Check whether the Element is present.
 			if ($cvPresent!= null)	{
 				$existingCV=$this->iCountChild("//form[@id='mp-mypage-cv-select-form']//tbody/tr"); //Returns the count of Element.
@@ -1542,8 +1528,7 @@ public function CheckExistingCV() {
 				    $this->iClickOnTheElementWithXPath("//tr[$i]//*[@class='delete-cv']");
 					$this->iWaitForSeconds(5);
 					$this->iClick("//*[@value='Confirm']");
-					$this->iWaitForSeconds(2);
-					  
+					$this->iWaitForSeconds(2);				  
 				}
 			} 
 	}
