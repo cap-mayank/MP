@@ -563,6 +563,7 @@ public function iHoverOverTheElement($locator)
         // ok, let's hover it
 		$element->focus();
         $element->mouseOver();
+		$element->click();
 	}
 
 //**********************************************************************************************************************************************************************************************//
@@ -678,7 +679,7 @@ public function VisitPage($site,$env,$country)
 			//$country = all the countries supported by Page
 			$url = str_replace("sg",$country,$new);
 		}
-		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or $country ==="uk") {
+		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or $country ==="uk" or $country ==="za")  {
 			//$site = michaelpage or pagepersonnel
 			$base = str_replace("pagesite",$site,$old);
 			//$env = the environment in which it needs to be run
@@ -693,12 +694,12 @@ public function VisitPage($site,$env,$country)
 			$envnew = str_replace("uat",$env,$base);
 			$url= str_replace(".sg","",$envnew);
 		}
-		elseif ($country ==="ie")	{
+		elseif ($country ==="ie" or $country ==="ae" or $country ==="at" )	{
 			//$site = michaelpage or pagepersonnel
 			$base = str_replace("pagesite",$site,$old);
 			//$env = the environment in which it needs to be run
 			$envnew = str_replace("uat",$env,$base);
-			$url= str_replace("com.sg","ie",$envnew);
+			$url= str_replace("com.sg",$country,$envnew);
 		}
 		$this->getSession()->visit($url);
 		
@@ -727,7 +728,7 @@ public function VisitMypage($site,$env,$country)
 			//$country = all the countries supported by Page
 			$url = str_replace("sg",$country,$new);
 		}
-		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or$country ==="uk") {
+		elseif ($country ==="in" or $country ==="nz" or $country ==="jp" or$country ==="uk" or $country ==="za"){
 			//$site = michaelpage or pagepersonnel
 			$base = str_replace("pagesite",$site,$old);
 			//$env = the environment in which it needs to be run
@@ -742,8 +743,48 @@ public function VisitMypage($site,$env,$country)
 			$envnew = str_replace("uat",$env,$base);
 			$url= str_replace(".sg","",$envnew);
 		}
+		elseif ($country ==="ie" or $country ==="ae" or $country ==="at")	{
+			//$site = michaelpage or pagepersonnel
+			$base = str_replace("pagesite",$site,$old);
+			//$env = the environment in which it needs to be run
+			$envnew = str_replace("uat",$env,$base);
+			$url= str_replace("com.sg",$country,$envnew);
+		}
 		$this->getSession()->visit($url);
     }
+
+//**********************************************************************************************************************************************************************************************//
+//Purpose : This function is for modifying the URL for multilingual sites
+//Created on : 18 Feb 2015
+//Author : Aniket Kharade
+//Improvements/Modifications/Changes history|Reason    |Date  |Done By |
+//
+//**********************************************************************************************************************************************************************************************//
+ /**
+  * @When /^I check with country "([^"]*)" and language "([^"]*)"$/
+  */
+public function checkWithCountry($country,$language)
+    {
+		$session = $this->getSession();
+		$detailurl=$session->getCurrentUrl();
+		if($language === "en" and ($country === "jp" or $country === "at"))
+			{
+				$new_url=$detailurl."en";
+				$session->visit($new_url);
+			}
+		elseif($language === "zh")
+			{
+				$new_url=$detailurl."zh";
+				$session->visit($new_url);
+			}
+		else
+			{
+				$session->visit($detailurl);
+			}
+        
+    }
+
+
 
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function is for checking a check box with xpath
@@ -853,15 +894,18 @@ public function ClickOn($value,$place)
 			$nvalue=str_replace("job ","",$value);
 			$xpath=str_replace("1",$nvalue,$prev);
 		}
-		if ($place === "meganav menu")	{
-			$prev="//nav[@id='meganav-mega_menu_option']//a[contains(text(),'internal')]";
-			list($menuoption, $internaloption) = explode(":", $value);
-			//to get the correct mega menu
-			//NOTE: menuoption should be in lower case and should be seperated by an _ and not spaces between the words
-			$mvalue=str_replace("option",$menuoption,$prev);
-			//to click on the option inside the specified mega menu
-			$xpath=str_replace("internal",$internaloption,$mvalue);
-		}
+		if ($place === "meganav menu")             
+		{
+             $prev="//nav[@id='meganav-mega_menu_option']//a[contains(text(),'internal')]";
+			   //$prev="//a[@class='mega_menu_option']//a[contains(text(),'internal')]";
+             list($menuoption, $internaloption) = explode(":", $value);
+             //to get the correct mega menu
+             //NOTE: menuoption should be in lower case and should be seperated by an _ and not spaces between the words
+             $mvalue=str_replace("option",$menuoption,$prev);
+             //to click on the option inside the specified mega menu
+             $xpath=str_replace("internal",$internaloption,$mvalue);
+        }
+    
 		$this->iClickOnTheElementWithXPath($xpath);
 		
 	}	
@@ -1021,13 +1065,13 @@ public function FillForm($form,$country,$para)
 		$pagesite=$this->gsite;
 		//For Submit job spec
 		If($form === "submit-job-spec" or $form === "upload-job-brief")	{
-			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$location_ie,$location_jp,$sector,$detail,$jobspec)=preg_split("[,]",$para);
+			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$location_ie,$location_jp,$location_cn,$location_ae,$location_za,$location_at,$sector,$detail,$jobspec)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-company",$company);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
-			if($country!== "ie")
+			if($country!= "ie" and $country!= "za" and $country!="at")
 			{
 			$var='location_'.$country;
 			
@@ -1058,22 +1102,30 @@ public function FillForm($form,$country,$para)
 						$ele=strtolower($sector);
 						$genID=$ele;
 					}
+					if($sector!="")
+					{	
+						$old="edit-submitted-logistics-locations";
+						$new = str_replace("logistics",$genID,$old);
+						$this->getSession()->getPage()->selectFieldOption($new,$$var);
 					
-					$old="edit-submitted-logistics-locations";
-					$new = str_replace("logistics",$genID,$old);
-					$this->getSession()->getPage()->selectFieldOption($new,$$var);
+					}
+				}
+				elseif($country==="ae"){
+				$new="edit-submitted-location";
+				$this->getSession()->getPage()->selectFieldOption($new,$$var);
+				
 				}
 				else
 				{
-				$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var);
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-location-of-job",$$var); 
 				}
 			}
 			
-			if($country === "uk" AND $pagesite === "pagepersonnel") 
+			if((($country === "ie" ) AND $pagesite === "michaelpage") or ($country === "uk" AND $pagesite === "pagepersonnel")) 
 			{
 			$this->getSession()->getPage()->fillField("edit-submitted-details-of-job-specification",$detail); 			
 			}
-			else
+			elseif(($country === "us" or $country === "uk" or $country === "at" or $country === "ae") AND $pagesite === "michaelpage")
 			{
 			$this->getSession()->getPage()->fillField("edit-submitted-details-of-job-spec",$detail); 
 			}
@@ -1081,14 +1133,14 @@ public function FillForm($form,$country,$para)
 		}
 		//For Request Call Back
 		elseif($form === "request-call-back")	{
-			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_us,$location_uk,$location_ie,$location_jp,$Message)=preg_split("[,]",$para);
+			list($name,$job_title,$organisation,$tel,$email,$sector,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_us,$location_uk,$location_ie,$location_jp,$location_cn,$location_ae,$location_za,$location_at,$Message)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-job-title",$job_title);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-organisation",$organisation);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
 			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-discipline-of-job",$sector);
-			if($country!="ie")
+			if($country!="ie" and $country!="at")
 			{
 			$var='location_'.$country;
 			// Logic for generating the Location ID based on Sector ID
@@ -1118,10 +1170,17 @@ public function FillForm($form,$country,$para)
 						$ele=strtolower($sector);
 						$genID=$ele;
 					}
-					
+					if($sector!=""){
 					$old="edit-submitted-logistics-locations";
 					$new = str_replace("logistics",$genID,$old);
 					$this->getSession()->getPage()->selectFieldOption($new,$$var);
+				}
+				}
+				elseif($country ==="za"){
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-locations",$$var); 
+				}
+			    elseif($country ==="ae"){
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-location",$$var); 
 				}
 				else
 				{
@@ -1131,16 +1190,19 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-brief-message",$Message);
 		}
         //For Feedback form
-          elseif($form === "submit-feedback")	{
+          elseif($form === "submit-feedback")	
+		  {
 		    list($name,$email,$telephone,$Complaint_subject,$Comments)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-email",$email);
-			if($country==="uk" and $pagesite==="pagepersonnel"){
-			$this->getSession()->getPage()->fillField("edit-submitted-phone-number",$telephone);
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-complaint-subject",$Complaint_subject); 
+			if($country==="uk" and $pagesite==="pagepersonnel")
+			{
+			        $this->getSession()->getPage()->fillField("edit-submitted-phone-number",$telephone);
+					$this->getSession()->getPage()->selectFieldOption("edit-submitted-mp-complaint-subject",$Complaint_subject); 
 			}
-			elseif($country==="us"){
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-feedback-subject",$Complaint_subject);
+			elseif($country==="us")
+			{
+					$this->getSession()->getPage()->selectFieldOption("edit-submitted-feedback-subject",$Complaint_subject);
 			}
 			else
 			{
@@ -1149,15 +1211,70 @@ public function FillForm($form,$country,$para)
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-comments",$Comments);
 		}
 		//For salary appraisal
-        elseif($form === "salary-appraisal-request")	{
-			list($name,$sector,$Job_title,$salary,$format,$email,$tel)=preg_split("[,]",$para);
-			$this->getSession()->getPage()->fillField("edit-submitted-name",$name);
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-sector",$sector);
-			$this->getSession()->getPage()->fillField("edit-submitted-current-job-title",$Job_title);
-			$this->getSession()->getPage()->fillField("edit-submitted-current-salary",$salary);
-			$this->getSession()->getPage()->selectFieldOption("edit-submitted-preferred-format-for-appraisal",$format);
-			$this->getSession()->getPage()->fillField("edit-submitted-email",$email);
-			$this->getSession()->getPage()->fillField("edit-submitted-telephone-no",$tel);
+       elseif($form === "salary-appraisal-request")
+		{
+
+			list($fname,$lname,$sector,$Job_title,$salary,$state,$format,$email,$tel)=preg_split("[,]",$para);
+			if(($country === "au" or $country === "nz") AND $pagesite === "michaelpage")
+			{
+					$this->getSession()->getPage()->fillField("edit-submitted-mp-first-name",$fname);
+					$this->getSession()->getPage()->fillField("edit-submitted-mp-last-name",$lname);
+			}
+			elseif($country === "au" AND $pagesite === "pagepersonnel")
+			{
+					$this->getSession()->getPage()->fillField("edit-submitted-mp-salary-appraisal-uname",$fname);
+					
+					$this->getSession()->getPage()->fillField("edit-submitted-last-name",$lname);
+					
+			}
+			elseif((($country === "jp" or $country === "cn") AND $pagesite === "michaelpage") or ($country === "hk" AND $pagesite === "pagepersonnel"))
+			{
+			$this->getSession()->getPage()->fillField("edit-submitted-name",$fname); 
+			}
+			elseif($country ==="sg" AND $pagesite === "pagepersonnel")
+			{
+			$this->getSession()->getPage()->fillField("edit-submitted-pp-name",$fname);  
+			}
+			else
+			{
+					$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$fname);  
+	        }
+			
+			//if($country!= "sg" AND $pagesite === "pagepersonnel"){
+         	$this->getSession()->getPage()->selectFieldOption("edit-submitted-sector",$sector);  
+			//}
+			
+			if((($country === "au" or $country === "in") AND $pagesite === "michaelpage") or ($country === "au" AND $pagesite === "pagepersonnel")) 
+			{
+				$this->getSession()->getPage()->selectFieldOption("edit-submitted-state",$state);
+			}
+			
+			$this->getSession()->getPage()->fillField("edit-submitted-current-job-title",$Job_title); 
+			
+			$this->getSession()->getPage()->fillField("edit-submitted-current-salary",$salary); 
+		
+			$this->getSession()->getPage()->selectFieldOption("edit-submitted-preferred-format-for-appraisal",$format); 
+			
+			$this->getSession()->getPage()->fillField("edit-submitted-email",$email); 
+			
+			
+			/* if(($country === "au" or $country === "sg" or $country === "hk" or $country === "in" or $country === "nz") AND $pagesite === "michaelpage" ){
+			$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel); 
+			
+			}
+			else */
+			if(($country === "sg" or $country === "hk") AND $pagesite === "pagepersonnel" )
+			{
+					$this->getSession()->getPage()->fillField("edit-submitted-telephone-no",$tel); 
+			}
+			elseif(($country === "au" AND $pagesite === "pagepersonnel") or (($country === "jp" or $country === "cn") AND $pagesite === "michaelpage"))
+			{
+					$this->getSession()->getPage()->fillField("edit-submitted-telephoone-no",$tel); 
+					}
+			else
+			{
+				$this->getSession()->getPage()->fillField("edit-submitted-mp-telephone",$tel);
+			}
 		}
 		//For job apply with linkden
         elseif($form === "job-apply-linkden")	{
@@ -1225,23 +1342,32 @@ public function FillForm($form,$country,$para)
         }
 		//For Submit CV
 		elseif($form === "Submit CV")	{
-			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
+			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_ie,$location_us,$location_jp,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-firstname",$fname);
+			$this->iWaitForSeconds(2);
 			$this->getSession()->getPage()->fillField("edit-lastname",$lname);
+			$this->iWaitForSeconds(2);
 			$this->getSession()->getPage()->fillField("edit-email",$email);
+			$this->iWaitForSeconds(2);
 			$this->getSession()->getPage()->fillField("edit-comment",$comments);
+			$this->iWaitForSeconds(2);
 			//Current Job Title only for SG and IN
 			if($country ==="sg" or $country ==="in")	{
 				$this->getSession()->getPage()->fillField("edit-current-job",$title);
+				$this->iWaitForSeconds(2);
 			}
 			//Current Salary only for IN
 			if($country ==="in")	{
-				$this->getSession()->getPage()->selectFieldOption($sal,"edit-current-salary");
+				$this->getSession()->getPage()->selectFieldOption("edit-current-salary",$sal);
+				$this->iWaitForSeconds(2);
 			}
+			$this->getSession()->getPage()->selectFieldOption("edit-sector",$sector);
+			$this->iWaitForSeconds(2);
 			$var='location_'.$country;
 			$this->getSession()->getPage()->selectFieldOption("edit-location-cv",$$var);
-			$this->getSession()->getPage()->selectFieldOption("edit-sector",$sector);
+			$this->iWaitForSeconds(2);
 			$this->getSession()->getPage()->selectFieldOption("edit-job-type",$jobtype);
+			$this->iWaitForSeconds(2);
 			$this->uploadLocalFile($cv,"//input[@id='edit-cv']");
 			//Checkboxs only for AU
 			If($country ==="au")	{
@@ -1506,6 +1632,71 @@ public function VerifySavedSearchJobAlertWithKeyword()
  */
 public function SearchWithBrowseJobs($search)
 	{
+		//check for keywords passed if not throw exception
+		if ($search === null or $search === "")	{
+            throw new Exception('No sector is mentioned to search from Browse your jobs');
+		}
+		//Search functionality with keyword and using filters present on job search result page
+		$this->FillIn($keywords[0],"search","search jobs");
+		//select 0 for min salary
+		$this->selectFieldsxpath($values[0],"//*[@id='salary-select-wrapper']//*[@id='edit-field-job-salary-min']");
+		//select highest value for max salary
+		$this->selectFieldsxpath($values[$salmax-1],"//*[@id='salary-select-wrapper']//*[@id='edit-field-job-salary-max']");
+		$this->iPressButton("Search");
+		$this->iWaitForSeconds(2);
+
+		//Salary Filter on job search result page
+		//select 0 for min salary
+		//$this->selectFieldsxpath($values[0],"//*[@id='views-exposed-form-job-search-jobsearch-facet-filter']//*[@id='edit-field-job-salary-min']");
+		//select highest value for max salary
+		//$this->selectFieldsxpath($values[$salmax-1],"//*[@id='views-exposed-form-job-search-jobsearch-facet-filter']//*[@id='edit-field-job-salary-max']");
+		//$this->iPressButton("Filter Salary");
+		$this->iWaitForSeconds(2);
+
+		//get the number of matching jobs
+		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		//Grab initial count
+		$fcount=$searchresult[0];
+		$this->iWaitForSeconds(2);
+
+		//click on 1st location on location filter to check the matching jobs have reduced
+		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-locationparents-all']//li/a");
+		$this->iWaitForSeconds(2);
+		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$loccount=$searchresult[0];
+		if($loccount>$fcount)	{
+			throw new Exception('Number of jobs filtered after location filtering is more than expected');
+		}
+
+		$this->iWaitForSeconds(2);
+		//click on 1st sector on sector filter to check the matching jobs have reduced
+		$this->iClickOnTheElementWithXPath("//*[contains(@class,' sector')]//li/a");
+		$this->iWaitForSeconds(2);
+		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$seccount=$searchresult[0];
+		if($seccount>$loccount)	{
+			throw new Exception('Number of jobs filtered after sector filtering is more than expected');
+		}
+
+		$this->iWaitForSeconds(2);
+		//click on 1st subsector on subsector filter to check the matching jobs have reduced(or remain same)
+		$this->iClickOnTheElementWithXPath("//*[contains(@class,'subsector')]//li/a");
+		$this->iWaitForSeconds(2);
+		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$subcount=$searchresult[0];
+		if($subcount>$seccount)	{
+			throw new Exception('Number of jobs filtered after subsector filtering is more than expected');
+		}
+
+		$this->iWaitForSeconds(2);
+		//click on 1st contract type on job type filter to check the matching jobs have reduced(or remain same)
+		$this->iClickOnTheElementWithXPath("//*[@id='facetapi-facet-search-apijob-search-block-field-job-contract-type']//li/a");
+		$this->iWaitForSeconds(2);
+		$searchresult=$this->GrabTextWithXpath("//*[@class='pager pager-top']//*[@class='num-matching-jobs']");
+		$concount=$searchresult[0];
+		if($concount>$subcount)	{
+			throw new Exception('Number of jobs filtered after job type filtering is more than expected');
+		}
 
 	}
 	
@@ -1532,7 +1723,106 @@ public function CheckExistingCV()
 				}
 			} 
 	}
+//************************************************************************************************************************************************
+//Purpose : This function is for Salary Employment forecast report.
+//Created on : 22/12/2014
+//Author : Aniket Kharade
+//Improvements/Modifications/Changes history|Reason                                                            |Date                    |Done By             |
+//
+//****************************************************************************************************
 
+
+ /**
+  * @Given /^I Fill "([^"]*)" Url for country "([^"]*)" and parameters "([^"]*)"$/
+  */
+
+public function iFillUrlForCountryAndParameters($Url, $country, $para)
+{
+    if($Url==="salary-centre" or $Url==="salary-survey" )
+		{
+				list($sector,$subsector,$location)=preg_split("[,]",$para);
+				$this->getSession()->getPage()->selectFieldOption("edit-select-sector",$sector); 
+				$this->iWaitForSeconds(5);
+				if(empty($sector)){
+				$var="edit-select-subsector";
+				$this->getSession()->getPage()->selectFieldOption($var,$subsector);
+				}
+				else{
+				$newvar="edit-select-subsector--2";
+				$this->getSession()->getPage()->selectFieldOption($newvar,$subsector);
+				}
+				//$old="edit-submitted-logistics-locations";
+			    /* $new = str_replace("edit-select-subsector",$genID,$newvar);*/
+				
+				$this->iWaitForSeconds(5);
+				$this->getSession()->getPage()->selectFieldOption("edit-select-location--3",$location);
+				
+		}
+		
+}
+
+//************************************************************************************************************************************************
+//Purpose : This function is for Navigating to Salary Employment forecast report.
+//Created on : 8/1/2015
+//Author : Aniket Kharade
+//Improvements/Modifications/Changes history|Reason                                                            |Date                    |Done By             |
+//
+//****************************************************************************************************
+
+/**
+ * @Given /^I navigate the URL with parameters "([^"]*)"$/   
+ */
+
+ 
+ public function iNavigateTheUrlWithParameters($sector,$subsector,$location)
+//public function iSelectAndNavigate($sector,$subsector,$location)
+{
+  // $base="http://wwwuat.michaelpage.com.au/salary-survey/Marketing/Healthcare/NSW/all";
+   $session=$this->getSession();
+   $detailurl=$session->getCurrentUrl();
+   echo $detailurl;
+   list($https,$dummy,$domain,$dummy_Url,$sec,$sub,$loc)=preg_split("[/]",$detailurl);
+  // $splitUrl = split ("/\//", $base); 
+			//$externalapply = $domain."/"."job-apply-external"."/".$ref."/".$refnum;
+		//ereg($string, '[^a-zA-Z0-9_-]')
+		//rawurldecode($sec);
+		//echo $sec;
+		
+		if($sec===$sector and $sub===$subsector and $loc===$location)
+		{
+		  echo "The Url is redirectd to target Url";
+		}
+   
+    
+		
+}
+
+//**********************************************************************************************************************************************************************************************//
+//Purpose : This function is for checking a part of the url is as expected
+//Created on : 09 May 2014
+//Author : Sahil Mehta
+//Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
+//
+//**********************************************************************************************************************************************************************************************//
+  
+/**
+* @Given /^I navigate url "([^"]*)" with parameters "([^"]*)"$/
+*/
+public function iNavigateurl($url,$parameter)
+  {
+	list($sector,$subsector,$location)=preg_split("[,]",$parameter);
+	$session=$this->getSession();
+	$node = $this->getSession()->getCurrentUrl();
+	if (null === $node ) {
+			throw new \InvalidArgumentException(sprintf('Could not get url'));
+		}
+
+	if (strpos($node,"salary-survey/".$sector."/".$subsector."/".$location."/all") == False) 
+	{
+		throw new \InvalidArgumentException(sprintf('Could not get Exact Url: "%s"', $node));
+	}
+
+  }
 //END OF DRIVER FUNCTIONS FOR PAGES HAVING XPATHS MENTIONED------------------------------------------------------
 
 //
