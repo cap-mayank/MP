@@ -976,7 +976,7 @@ public function logout()
 //Created on : 05 August 2014
 //Author : Lavin Malkani
 //Improvements/Modifications/Changes history|Reason				|Date		|Done By	|
-//
+//To incorporate Changes for  |4/5/2015|Lavin 
 //**********************************************************************************************************************************************************************************************//
 /**
  * @When /^I redirect to external job apply page for "([^"]*)"$/
@@ -986,19 +986,22 @@ public function VistExternalJobapplyUrl($country)
 		//Goto External job apply Page
 		$session=$this->getSession();
 		$detailurl=$session->getCurrentUrl();
-		echo $detailurl;
+	
 		If ($country ==="au" or $country ==="sg" or $country ==="hk" or $country ==="my" or $country ==="nz"or $country ==="in"or $country ==="cn"or $country ==="jp")
 		{
-			list($https,$dummy,$domain,$jdetail,$jtitle,$ref,$refnum)=preg_split("[/]",$detailurl);
-			$externalapply = $domain."/"."job-apply-external"."/".$ref."/".$refnum;
+		list($https,$dummy,$domain,$jdetail,$jtitle,$ref,$refnum)=preg_split("[/]",$detailurl);
+			$externalapply = $https.$domain."/"."job-apply-external"."/".$ref."/".$refnum;
 		}
-		elseif ($country ==="uk" or $country ==="ie" or $country ==="us")
+		elseif ($country ==="uk" or $country ==="ie" or $country ==="us" or $country ==="za" or $country ==="at")
 		{
-			$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&source=bean&_ad=broadbean";
+			//$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&source=bean&_ad=broadbean";
+			$externalapply = $detailurl."?aplitrak_email=dGVzdG1pY2hhZWxwYWdlQGdtYWlsLmNvbQ&utm_source=Indeed&utm_medium=Job Board&utm_campaign=Indeed%2520Organic";
 		}
-		$session->visit($externalapply);
-	}
 	
+		$session->visit($externalapply);
+		
+		
+	}
 //**********************************************************************************************************************************************************************************************//
 //Purpose : This function to Sign in to linkden
 //Created on : 30 October 2014
@@ -1304,10 +1307,12 @@ public function FillForm($form,$country,$para)
 			if ($bcreatalert === "1"){ 
 				$this->getSession()->getPage()->checkField("edit-create-alert");
 			}
-			if ($country === "au"){ 
+			if ($country === "ie"){ 
 				if ($bprivacy === "1"){
-					$this->checkFieldxpath("edit-privacy-data-1");
-					$this->checkFieldxpath("edit-privacy-data-2");
+				Echo "entered";
+					$this->getSession()->getPage()->checkField("edit-privacy-data-1");
+					//$this->checkFieldxpath("edit-privacy-data-1");
+					//$this->checkFieldxpath("edit-privacy-data-2");
 				}
 			}
         }
