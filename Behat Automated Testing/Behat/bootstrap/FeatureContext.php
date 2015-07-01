@@ -1345,9 +1345,9 @@ public function FillForm($form,$country,$para)
 				}
 			}
         }
-		//For Submit CV
+				//For Submit CV
 		elseif($form === "Submit CV")	{
-			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_ie,$location_us,$location_jp,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
+			list($fname,$lname,$email,$comments,$title,$sal,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_ie,$location_us,$location_jp,$location_at,$sector,$jobtype,$cv,$check)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-firstname",$fname);
 			$this->iWaitForSeconds(2);
 			$this->getSession()->getPage()->fillField("edit-lastname",$lname);
