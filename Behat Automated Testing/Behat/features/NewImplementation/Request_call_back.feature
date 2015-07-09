@@ -1,7 +1,6 @@
 @request
 Feature: Form : Request Call back
 
-
 @javascript
 Scenario Outline: Test for Request a call back
 Given I maximise the window
@@ -18,19 +17,20 @@ And I wait 2 seconds
 Then I should see "<output1>"
 
 Examples:
-|country|pagesite		|language|name |job_title  |organisation    |telephone | email					|sector         |location_hk|location_au|location_sg|location_in|location_my |location_nz|location_us|location_uk  |location_ie|location_jp|location_cn|location_ae|location_za|location_at|message |Form_Name|output1|
+|country|pagesite		|name |job_title  |organisation    |telephone | email					|sector         |location_hk|location_au|location_sg|location_in|location_my |location_nz|location_us|location_uk  |location_ie|location_jp|location_cn|location_ae|location_za|location_at|message |Form_Name|output1|
+
 #For PP AU
-|au		|pagepersonnel	|en|	  |Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
-|au		|pagepersonnel	|en|sahil|		      |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok    |Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12345     |sahil.mehta			  	|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is invalid|
-|au		|pagepersonnel  |en|sahil|Manager	  |CG              |          |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12av5     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|Field is numeric|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |		    |		    |		    |		    |			 |		     |           |             |           |           |       ||||Consider|Request a call back|This field is required|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||        |Request a call back|Thank you Request a call back|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|               |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |	         |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
-|au		|pagepersonnel	|en|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|Thank you Request a call back|
-|au		|pagepersonnel	|en|sahil|Manager	  |                |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
- 
+|au		|pagepersonnel	|	  |Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
+|au		|pagepersonnel	|sahil|		      |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok    |Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12345     |sahil.mehta			  	|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is invalid|
+|au		|pagepersonnel  |sahil|Manager	  |CG              |          |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12av5     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|Field is numeric|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |		    |		    |		    |		    |			 |		     |           |             |           |           |       ||||Consider|Request a call back|This field is required|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||        |Request a call back|Thank you Request a call back|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|               |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |	         |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
+|au		|pagepersonnel	|sahil|Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|Thank you Request a call back|
+|au		|pagepersonnel	|sahil|Manager	  |                |12345     |sahil.mehta@capgemini.com|Accounting     |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
+
 #For PP SG
 |sg		|pagepersonnel	|	  |Manager	  |CG              |12345     |sahil.mehta@capgemini.com|Sales          |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
 |sg		|pagepersonnel	|sahil|		      |CG              |12345     |sahil.mehta@capgemini.com|Sales          |Hong Kong  |Darwin	    |Bangkok	|Mumbai	    |Kuala Lumpur|Auckland   |Chicago    |Bristol      |           |Tokyo      |Beijing||||Consider|Request a call back|This field is required|
