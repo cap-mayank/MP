@@ -1067,7 +1067,7 @@ public function FillForm($form,$country,$para)
     {	
 		$pagesite=$this->gsite;
 		//For Submit job spec
-		If($form === "submit-job-spec" or $form === "upload-job-brief")	{
+		If($form === "submit-job-spec" or $form === "upload-job-description")	{
 			list($name,$company,$email,$tel,$location_hk,$location_au,$location_sg,$location_in,$location_my,$location_nz,$location_uk,$location_us,$location_ie,$location_jp,$location_cn,$location_ae,$location_za,$location_at,$sector,$detail,$jobspec)=preg_split("[,]",$para);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-name",$name);
 			$this->getSession()->getPage()->fillField("edit-submitted-mp-company",$company);
